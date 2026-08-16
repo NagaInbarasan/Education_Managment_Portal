@@ -1,6 +1,6 @@
 /**
  * Phazon Auth Controller Module
- * Handles login & registration UI interactions, Supabase Auth execution, and error handling.
+ * Handles login & registration UI interactions, Supabase Email/Password Auth execution, and error handling.
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -17,10 +17,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const toggleText           = document.getElementById('auth-toggle-text');
   const errorBox             = document.getElementById('auth-error-box');
   const errorMsg             = document.getElementById('auth-error-msg');
-  const googleBtn            = document.getElementById('pz-google-btn');
-  const googleBtnText        = document.getElementById('pz-google-btn-text');
 
-  let isRegister = true;
+  let isRegister = false; // Default to Login tab
 
   function showError(msg) {
     if (errorBox && errorMsg) {
@@ -75,58 +73,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.location.href = url;
   }
 
+  // Set default mode to Login
+  setMode(false);
+
   tabRegister?.addEventListener('click', () => setMode(true));
   tabLogin?.addEventListener('click',    () => setMode(false));
   toggleLink?.addEventListener('click',  (e) => { e.preventDefault(); setMode(!isRegister); });
 
-  // Handle OAuth callback
-  const hasOAuthCallback = window.location.hash.includes('access_token')
-    || window.location.search.includes('code=')
-    || window.location.search.includes('error=');
-
-  if (hasOAuthCallback) {
-    if (googleBtnText) googleBtnText.textContent = 'Signing you in...';
-    if (googleBtn) googleBtn.disabled = true;
-
-    try {
-      const session = await PzAuth.handleOAuthCallback();
-      if (session) {
-        window.history.replaceState({}, document.title, window.location.pathname);
-        redirectToDashboard(session.user?.role);
-        return;
-      }
-    } catch (err) {
-      showError('Google sign-in failed: ' + (err.message || 'Please try again.'));
-      if (googleBtnText) googleBtnText.textContent = 'Continue with Google';
-      if (googleBtn) googleBtn.disabled = false;
-    }
-  }
-
   // Redirect if already logged in
-  if (!hasOAuthCallback && window.PzAuth) {
+  if (window.PzAuth) {
     const session = await PzAuth.getSession();
     if (session) {
       redirectToDashboard(session.user?.role);
       return;
     }
   }
-
-  // Google OAuth
-  googleBtn?.addEventListener('click', async (e) => {
-    e.preventDefault();
-    clearError();
-
-    if (googleBtnText) googleBtnText.textContent = 'Redirecting to Google...';
-    if (googleBtn) googleBtn.disabled = true;
-
-    try {
-      await PzAuth.loginWithGoogle();
-    } catch (err) {
-      showError('Google sign-in failed: ' + (err.message || 'Please try again.'));
-      if (googleBtnText) googleBtnText.textContent = 'Continue with Google';
-      if (googleBtn) googleBtn.disabled = false;
-    }
-  });
 
   // Form Submit
   form.addEventListener('submit', async (e) => {
@@ -151,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       setLoading(submitBtn, 'Creating Account...', true);
       try {
-        const { session, user, requiresConfirmation } = await PzAuth.register({ name, email, password, role: selectedRole });
+        const { user, requiresConfirmation } = await PzAuth.register({ name, email, password, role: selectedRole });
 
         if (requiresConfirmation) {
           showError('');
@@ -180,11 +141,20 @@ document.addEventListener('DOMContentLoaded', async () => {
       setLoading(submitBtn, 'Logging In...', true);
       try {
         const session = await PzAuth.login({ email, password });
-        redirectToDashboard(session?.user?.role);
+        if (!session || !session.user) {
+          throw new Error('User profile not found. Please contact system administrator.');
+        }
+        redirectToDashboard(session.user.role);
 
       } catch (err) {
         setLoading(submitBtn, 'Log In', false);
-        showError(err.message || 'Login failed. Please check your credentials.');
+        let msg = err.message || 'Login failed. Please check your credentials.';
+        if (msg.includes('Invalid email or password') || msg.includes('Invalid login credentials')) {
+          msg = 'Invalid email address or password.';
+        } else if (msg.includes('Email not confirmed')) {
+          msg = 'Please confirm your email address before logging in.';
+        }
+        showError(msg);
       }
     }
   });

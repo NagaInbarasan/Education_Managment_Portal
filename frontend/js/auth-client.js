@@ -15,6 +15,10 @@
  */
 
 const PzAuth = (() => {
+  const SUPABASE_URL      = 'https://pivqxudlyfnbhxxxuokk.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBpdnF4dWRseWZuYmh4eHh1b2trIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4NTQ2NjYsImV4cCI6MjEwMjQzMDY2Nn0.QyUh4DEBAEc6jcRqbYcpIEfzbHDH9-1ZwHAcF3rUUHs';
+  const AUTH_SESSION_KEY  = 'pz_auth_session';
+
   function getApiBase() {
     if (window.PzConfig?.API_BASE) return window.PzConfig.API_BASE;
     const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
@@ -240,36 +244,6 @@ const PzAuth = (() => {
     return session;
   }
 
-  async function loginWithGoogle(redirectTo) {
-    const client = _getClient();
-    if (!client) throw new Error('Auth service unavailable.');
-
-    const redirectUrl = redirectTo || `${window.location.origin}${window.location.pathname}`;
-
-    const { error } = await client.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: redirectUrl },
-    });
-
-    if (error) throw new Error(error.message || 'Google sign-in failed.');
-  }
-
-  async function handleOAuthCallback() {
-    const client = _getClient();
-    if (!client) return null;
-
-    const { data: { session }, error } = await client.auth.getSession();
-    if (error || !session) return null;
-
-    let formatted = _formatSession(session);
-    await _syncProfileToBackend(formatted).catch(() => {});
-    formatted = await _enrichSessionWithProfile(formatted);
-    _setSessionData(formatted);
-    _syncAppState(formatted);
-
-    return formatted;
-  }
-
   async function getSession() {
     const cached = _getSessionData();
     if (cached && cached.expires_at > Date.now()) {
@@ -315,8 +289,11 @@ const PzAuth = (() => {
       return false;
     }
 
-    if (requiredRole && session.user?.role !== requiredRole && session.user?.role !== 'admin') {
-      window.location.href = getDashboardUrl(session.user?.role);
+    const userRole = (session.user?.role || '').toLowerCase();
+    const cleanRequired = (requiredRole || '').toLowerCase();
+
+    if (cleanRequired && userRole !== cleanRequired && userRole !== 'admin') {
+      window.location.href = getDashboardUrl(userRole);
       return false;
     }
 
@@ -326,8 +303,6 @@ const PzAuth = (() => {
   return {
     register,
     login,
-    loginWithGoogle,
-    handleOAuthCallback,
     getSession,
     logout,
     requireAuthGuard,
