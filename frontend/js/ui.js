@@ -14,13 +14,26 @@ const PzUI = {
       const href = link.getAttribute('href') || '';
       const linkPage = href.split('/').pop();
 
-      if (linkPage === currentPage) {
-        link.classList.add('bg-primary-container', 'text-on-primary-container', 'border-l-4', 'border-secondary', 'rounded-r-full');
-        link.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high', 'hover:text-primary');
+      if (linkPage === currentPage && linkPage !== '#') {
+        link.classList.add('bg-secondary', 'text-white', 'font-semibold', 'shadow-sm');
+        link.classList.remove('text-on-surface-variant', 'hover:bg-surface-container', 'hover:text-primary');
         const icon = link.querySelector('.material-symbols-outlined');
         if (icon) icon.style.fontVariationSettings = "'FILL' 1";
       }
     });
+  },
+
+  // ── Side Menu & Mobile Drawer Auto-Handler ──────────────────────────
+  initSideMenu() {
+    const btn = document.getElementById('mobile-menu-btn') || document.getElementById('dash-mobile-toggle');
+    const menu = document.getElementById('mobile-menu');
+
+    if (btn && menu) {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.classList.toggle('hidden');
+      });
+    }
   },
 
   // ── Toast Notifications ───────────────────────────────────────────
@@ -113,3 +126,8 @@ const PzUI = {
 };
 
 window.PzUI = PzUI;
+
+document.addEventListener('DOMContentLoaded', () => {
+  PzUI.setActiveNav();
+  PzUI.initSideMenu();
+});

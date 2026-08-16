@@ -18,6 +18,36 @@
   border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
+/* Side Menu Navigation Enhancements */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-on-surface-variant, #45464d);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-item:hover {
+  background-color: var(--color-surface-container, #e6eeff);
+  color: var(--color-primary, #000000);
+  transform: translateX(2px);
+}
+
+.nav-item.active {
+  background-color: var(--color-secondary, #4648d4);
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(70, 72, 212, 0.25);
+}
+
+.nav-item.active .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1;
+}
+
 /* Button UI Micro-interactions */
 .btn-primary {
   background-color: var(--color-primary);
