@@ -6,7 +6,7 @@
   <title>Phazon Academic — Teacher Portal</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../../css/variables.css"/>
   <link rel="stylesheet" href="../../css/style.css"/>
   <link rel="stylesheet" href="../../css/components.css"/>
@@ -29,30 +29,30 @@
     }
   </script>
   <style>
-    .nav-item { @apply flex items-center gap-3 text-on-surface-variant py-2.5 px-4 rounded-lg hover:bg-surface-container hover:text-primary transition-all duration-150 font-medium text-sm; }
-    .nav-item.active { @apply bg-secondary text-white; }
+    .nav-item { @apply flex items-center gap-3 text-on-surface-variant py-2.5 px-4 rounded-xl hover:bg-surface-container hover:text-primary transition-all duration-150 font-medium text-sm; }
+    .nav-item.active { @apply bg-secondary text-white font-semibold shadow-sm; }
     .nav-item .icon { @apply text-[20px]; }
   </style>
 </head>
-<body class="bg-background text-on-surface h-full font-sans antialiased flex overflow-hidden">
+<body class="bg-background text-on-surface h-full font-sans antialiased flex flex-col md:flex-row overflow-hidden">
 
-  <!-- SideNav -->
-  <nav class="hidden md:flex flex-col h-screen w-[260px] z-50 bg-surface border-r border-outline-variant flex-shrink-0">
+  <!-- Desktop SideNav -->
+  <nav class="hidden md:flex flex-col h-screen w-[260px] z-50 bg-surface border-r border-outline-variant/70 flex-shrink-0">
     <!-- Brand -->
-    <div class="px-5 pt-6 pb-4 flex items-center gap-3 border-b border-outline-variant">
-      <div class="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center shadow-sm flex-shrink-0">
-        <span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings:'FILL' 1">co_present</span>
+    <div class="px-5 pt-6 pb-4 flex items-center gap-3 border-b border-outline-variant/60">
+      <div class="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center shadow-sm flex-shrink-0 text-white">
+        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1">co_present</span>
       </div>
       <div class="min-w-0">
         <a href="../../index.html" class="font-bold text-primary text-base block truncate leading-tight">Phazon Academic</a>
-        <p class="text-xs text-secondary font-semibold">Teacher Portal</p>
+        <p class="text-xs text-secondary font-semibold">Teacher Console</p>
       </div>
     </div>
 
     <!-- User chip -->
-    <div class="px-4 py-3 border-b border-outline-variant">
-      <div class="flex items-center gap-2.5 bg-surface-container rounded-xl px-3 py-2">
-        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm flex-shrink-0">
+    <div class="px-4 py-3 border-b border-outline-variant/60">
+      <div class="flex items-center gap-2.5 bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-3 py-2">
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm flex-shrink-0 font-bold">
           <span class="material-symbols-outlined text-[16px]">co_present</span>
         </div>
         <div class="min-w-0">
@@ -66,117 +66,152 @@
     <div class="flex-1 overflow-y-auto px-3 py-3 space-y-0.5">
       <a href="dashboard.html"                 class="nav-item active"><span class="icon material-symbols-outlined">dashboard</span>Dashboard</a>
       <a href="../courses/courses.html"         class="nav-item"><span class="icon material-symbols-outlined">menu_book</span>My Classes</a>
-      <a href="#"                               class="nav-item"><span class="icon material-symbols-outlined">groups</span>Students</a>
-      <a href="../attendance/attendance.html"   class="nav-item"><span class="icon material-symbols-outlined">fact_check</span>Attendance</a>
+      <a href="../attendance/attendance.html"   class="nav-item"><span class="icon material-symbols-outlined">fact_check</span>Attendance Entry</a>
       <a href="../assignments/assignments.html" class="nav-item"><span class="icon material-symbols-outlined">assignment</span>Assignments</a>
       <a href="../exams/exams.html"             class="nav-item"><span class="icon material-symbols-outlined">quiz</span>Exams</a>
-      <a href="../grades/grades.html"           class="nav-item"><span class="icon material-symbols-outlined">grade</span>Grades</a>
+      <a href="../grades/grades.html"           class="nav-item"><span class="icon material-symbols-outlined">grade</span>Grades Evaluation</a>
       <a href="../progress/progress.html"       class="nav-item"><span class="icon material-symbols-outlined">bar_chart</span>Class Performance</a>
     </div>
 
     <!-- Footer -->
-    <div class="px-3 py-4 border-t border-outline-variant space-y-1">
-      <a href="../profile/profile.html" class="nav-item">
-        <span class="icon material-symbols-outlined">manage_accounts</span>Profile
-      </a>
-      <button onclick="PzAuth.logout()" class="nav-item w-full text-left text-red-600 hover:bg-red-50 hover:text-red-700">
-        <span class="icon material-symbols-outlined">logout</span>Logout
+    <div class="px-3 py-4 border-t border-outline-variant/60 space-y-1">
+      <button onclick="PzAuth.logout()" class="w-full bg-red-50 text-red-600 hover:bg-red-100 transition-colors py-2.5 px-4 rounded-xl font-semibold text-xs flex justify-center items-center gap-2">
+        <span class="material-symbols-outlined text-[18px]">logout</span>Sign Out
       </button>
     </div>
   </nav>
 
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-surface border-b border-outline-variant px-4 py-3 space-y-2 z-40">
+    <a class="block py-2 text-sm font-semibold text-secondary" href="dashboard.html">Dashboard</a>
+    <a class="block py-2 text-sm font-medium text-on-surface-variant" href="../courses/courses.html">My Classes</a>
+    <a class="block py-2 text-sm font-medium text-on-surface-variant" href="../attendance/attendance.html">Attendance</a>
+    <a class="block py-2 text-sm font-medium text-on-surface-variant" href="../assignments/assignments.html">Assignments</a>
+    <a class="block py-2 text-sm font-medium text-on-surface-variant" href="../grades/grades.html">Grades</a>
+    <button onclick="PzAuth.logout()" class="w-full text-left py-2 text-sm font-semibold text-red-600">Sign Out</button>
+  </div>
+
   <!-- Main Content -->
   <main class="flex-1 flex flex-col h-full overflow-y-auto">
     <!-- Top bar -->
-    <div class="bg-surface border-b border-outline-variant px-6 py-4 flex items-center justify-between sticky top-0 z-10">
-      <div>
-        <h1 class="text-xl font-bold text-primary">Faculty Console</h1>
-        <p class="text-xs text-on-surface-variant mt-0.5">Class management, attendance entry, and student monitoring</p>
+    <div class="bg-surface border-b border-outline-variant/60 px-4 md:px-8 py-4 flex items-center justify-between sticky top-0 z-20">
+      <div class="flex items-center gap-3">
+        <!-- Mobile Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl border border-outline-variant text-on-surface-variant hover:text-primary">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <div>
+          <h1 class="text-xl md:text-2xl font-extrabold text-primary">Faculty Console</h1>
+          <p class="text-xs text-on-surface-variant mt-0.5">Class management, period attendance recording, and student evaluation</p>
+        </div>
       </div>
-      <span class="inline-flex items-center gap-1.5 bg-secondary/10 text-secondary text-xs font-bold px-3 py-1 rounded-full">
+
+      <span class="inline-flex items-center gap-1.5 bg-secondary/10 text-secondary text-xs font-bold px-3 py-1 rounded-full border border-secondary/20">
         <span class="material-symbols-outlined text-[13px]">co_present</span>TEACHER
       </span>
     </div>
 
-    <!-- Stats -->
-    <div class="p-6">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-4 shadow-sm">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wide">Assigned Classes</span>
-            <div class="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center">
-              <span class="material-symbols-outlined text-secondary text-[18px]">class</span>
+    <!-- Stats & Actions -->
+    <div class="p-4 md:p-8 space-y-6 max-w-6xl mx-auto w-full">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/70 p-5 shadow-sm hover-card space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Assigned Classes</span>
+            <div class="w-8 h-8 rounded-lg bg-indigo-50 text-secondary flex items-center justify-center">
+              <span class="material-symbols-outlined text-[18px]">class</span>
             </div>
           </div>
-          <div class="text-2xl font-black text-primary" id="tch-stat-classes">—</div>
-          <div class="text-xs text-on-surface-variant mt-1">Active this semester</div>
+          <div class="text-3xl font-extrabold text-primary tracking-tight" id="tch-stat-classes">4</div>
+          <div class="text-[11px] text-indigo-600 font-medium">Active This Semester</div>
         </div>
 
-        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-4 shadow-sm">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wide">Active Assignments</span>
-            <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
-              <span class="material-symbols-outlined text-amber-600 text-[18px]">assignment</span>
+        <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/70 p-5 shadow-sm hover-card space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Active Assignments</span>
+            <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[18px]">assignment</span>
             </div>
           </div>
-          <div class="text-2xl font-black text-primary" id="tch-stat-assg">—</div>
-          <div class="text-xs text-on-surface-variant mt-1">Pending review</div>
+          <div class="text-3xl font-extrabold text-primary tracking-tight" id="tch-stat-assg">6</div>
+          <div class="text-[11px] text-amber-600 font-medium">Submissions Pending Review</div>
         </div>
 
-        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-4 shadow-sm">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-semibold text-on-surface-variant uppercase tracking-wide">Scheduled Exams</span>
-            <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
-              <span class="material-symbols-outlined text-red-500 text-[18px]">quiz</span>
+        <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/70 p-5 shadow-sm hover-card space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Scheduled Exams</span>
+            <div class="w-8 h-8 rounded-lg bg-red-50 text-red-500 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[18px]">quiz</span>
             </div>
           </div>
-          <div class="text-2xl font-black text-primary" id="tch-stat-exams">—</div>
-          <div class="text-xs text-on-surface-variant mt-1">Upcoming</div>
+          <div class="text-3xl font-extrabold text-primary tracking-tight" id="tch-stat-exams">2</div>
+          <div class="text-[11px] text-red-600 font-medium">Upcoming Evaluations</div>
         </div>
       </div>
 
-      <!-- Quick actions -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <a href="../attendance/attendance.html" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col items-center gap-2 hover:border-secondary/60 hover:bg-secondary/5 transition-all group">
-          <span class="material-symbols-outlined text-secondary text-[28px]" style="font-variation-settings:'FILL' 1">fact_check</span>
-          <span class="text-xs font-semibold text-on-surface-variant group-hover:text-secondary">Take Attendance</span>
-        </a>
-        <a href="../assignments/assignments.html" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col items-center gap-2 hover:border-secondary/60 hover:bg-secondary/5 transition-all group">
-          <span class="material-symbols-outlined text-secondary text-[28px]" style="font-variation-settings:'FILL' 1">assignment_add</span>
-          <span class="text-xs font-semibold text-on-surface-variant group-hover:text-secondary">New Assignment</span>
-        </a>
-        <a href="../grades/grades.html" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col items-center gap-2 hover:border-secondary/60 hover:bg-secondary/5 transition-all group">
-          <span class="material-symbols-outlined text-secondary text-[28px]" style="font-variation-settings:'FILL' 1">grade</span>
-          <span class="text-xs font-semibold text-on-surface-variant group-hover:text-secondary">Enter Grades</span>
-        </a>
-        <a href="../progress/progress.html" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col items-center gap-2 hover:border-secondary/60 hover:bg-secondary/5 transition-all group">
-          <span class="material-symbols-outlined text-secondary text-[28px]" style="font-variation-settings:'FILL' 1">bar_chart</span>
-          <span class="text-xs font-semibold text-on-surface-variant group-hover:text-secondary">Class Analytics</span>
-        </a>
+      <!-- Quick Actions Grid -->
+      <div class="space-y-3">
+        <h2 class="font-bold text-primary text-base">Quick Faculty Actions</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <a href="../attendance/attendance.html" class="bg-surface-container-lowest border border-outline-variant/70 rounded-2xl p-5 flex flex-col items-center justify-center gap-2 hover-card hover:border-secondary transition-all group shadow-sm text-center">
+            <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-all">
+              <span class="material-symbols-outlined text-[24px]">fact_check</span>
+            </div>
+            <span class="text-xs font-semibold text-primary">Take Attendance</span>
+          </a>
+
+          <a href="../assignments/assignments.html" class="bg-surface-container-lowest border border-outline-variant/70 rounded-2xl p-5 flex flex-col items-center justify-center gap-2 hover-card hover:border-secondary transition-all group shadow-sm text-center">
+            <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-all">
+              <span class="material-symbols-outlined text-[24px]">assignment_add</span>
+            </div>
+            <span class="text-xs font-semibold text-primary">New Assignment</span>
+          </a>
+
+          <a href="../grades/grades.html" class="bg-surface-container-lowest border border-outline-variant/70 rounded-2xl p-5 flex flex-col items-center justify-center gap-2 hover-card hover:border-secondary transition-all group shadow-sm text-center">
+            <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-all">
+              <span class="material-symbols-outlined text-[24px]">grade</span>
+            </div>
+            <span class="text-xs font-semibold text-primary">Enter Grades</span>
+          </a>
+
+          <a href="../progress/progress.html" class="bg-surface-container-lowest border border-outline-variant/70 rounded-2xl p-5 flex flex-col items-center justify-center gap-2 hover-card hover:border-secondary transition-all group shadow-sm text-center">
+            <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-all">
+              <span class="material-symbols-outlined text-[24px]">bar_chart</span>
+            </div>
+            <span class="text-xs font-semibold text-primary">Class Analytics</span>
+          </a>
+        </div>
       </div>
     </div>
   </main>
 
+  <script src="../../js/config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../../js/state.js"></script>
   <script src="../../js/api.js"></script>
   <script src="../../js/auth-client.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
+      // Mobile menu toggle
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      if (btn && menu) {
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+      }
+
       if (!PzAuth.requireAuthGuard('teacher')) return;
 
       const session = JSON.parse(localStorage.getItem('pz_auth_session') || 'null');
       const userName = session?.user?.name || 'Teacher';
-      document.getElementById('tch-nav-name').textContent  = userName;
-      document.getElementById('tch-nav-email').textContent = session?.user?.email || '';
+      if (document.getElementById('tch-nav-name'))  document.getElementById('tch-nav-name').textContent  = userName;
+      if (document.getElementById('tch-nav-email')) document.getElementById('tch-nav-email').textContent = session?.user?.email || '';
 
       try {
         const [assg, exams] = await Promise.all([
           PzAPI.authGet('/assignments').catch(() => null),
           PzAPI.authGet('/exams').catch(() => null),
         ]);
-        if (assg?.data)  document.getElementById('tch-stat-assg').textContent  = assg.data.length;
-        if (exams?.data) document.getElementById('tch-stat-exams').textContent = exams.data.length;
+        if (assg?.data && document.getElementById('tch-stat-assg'))   document.getElementById('tch-stat-assg').textContent  = assg.data.length;
+        if (exams?.data && document.getElementById('tch-stat-exams')) document.getElementById('tch-stat-exams').textContent = exams.data.length;
       } catch (_) {}
     });
   </script>

@@ -6,7 +6,7 @@
   <title>Phazon Academic — HOD Management Dashboard</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../../css/variables.css"/>
   <link rel="stylesheet" href="../../css/style.css"/>
   <link rel="stylesheet" href="../../css/components.css"/>
@@ -29,19 +29,19 @@
     }
   </script>
   <style>
-    .nav-item { @apply flex items-center gap-3 text-on-surface-variant py-2.5 px-4 rounded-lg hover:bg-surface-container hover:text-primary transition-all duration-150 font-medium text-sm; }
-    .nav-item.active { @apply bg-secondary text-white; }
+    .nav-item { @apply flex items-center gap-3 text-on-surface-variant py-2.5 px-4 rounded-xl hover:bg-surface-container hover:text-primary transition-all duration-150 font-medium text-sm; }
+    .nav-item.active { @apply bg-secondary text-white font-semibold shadow-sm; }
     .nav-item .icon { @apply text-[20px]; }
-    .nav-section { @apply text-[10px] font-bold uppercase tracking-widest text-on-surface-variant px-4 pt-4 pb-1; }
+    .nav-section { @apply text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/70 px-4 pt-4 pb-1; }
   </style>
 </head>
-<body class="bg-background text-on-surface h-full font-sans antialiased flex overflow-hidden">
+<body class="bg-background text-on-surface h-full font-sans antialiased flex flex-col md:flex-row overflow-hidden">
 
-  <!-- SideNav -->
-  <nav class="hidden md:flex flex-col h-screen w-[260px] z-50 bg-surface border-r border-outline-variant flex-shrink-0">
-    <div class="px-5 pt-6 pb-4 flex items-center gap-3 border-b border-outline-variant">
-      <div class="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center shadow-sm flex-shrink-0">
-        <span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings:'FILL' 1">supervisor_account</span>
+  <!-- Desktop SideNav -->
+  <nav class="hidden md:flex flex-col h-screen w-[260px] z-50 bg-surface border-r border-outline-variant/70 flex-shrink-0">
+    <div class="px-5 pt-6 pb-4 flex items-center gap-3 border-b border-outline-variant/60">
+      <div class="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center shadow-sm flex-shrink-0 text-white">
+        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1">supervisor_account</span>
       </div>
       <div class="min-w-0">
         <a href="../../index.html" class="font-bold text-primary text-base block truncate leading-tight">Phazon Academic</a>
@@ -49,9 +49,9 @@
       </div>
     </div>
 
-    <div class="px-4 py-3 border-b border-outline-variant">
-      <div class="flex items-center gap-2.5 bg-surface-container rounded-xl px-3 py-2">
-        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm flex-shrink-0">
+    <div class="px-4 py-3 border-b border-outline-variant/60">
+      <div class="flex items-center gap-2.5 bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-3 py-2">
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm flex-shrink-0 font-bold">
           <span class="material-symbols-outlined text-[16px]">supervisor_account</span>
         </div>
         <div class="min-w-0">
@@ -65,10 +65,12 @@
       <p class="nav-section">Overview</p>
       <a href="dashboard.html"                 class="nav-item active"><span class="icon material-symbols-outlined">dashboard</span>Overview</a>
       <a href="../search.html"                 class="nav-item"><span class="icon material-symbols-outlined">search</span>Global Search</a>
+      
       <p class="nav-section">Campus Services</p>
       <a href="calendar.html"                  class="nav-item"><span class="icon material-symbols-outlined">event</span>Academic Calendar</a>
       <a href="support.html"                   class="nav-item"><span class="icon material-symbols-outlined">support_agent</span>Support Requests</a>
-      <p class="nav-section">Academic</p>
+      
+      <p class="nav-section">Academic Oversight</p>
       <a href="timetable.html"                 class="nav-item"><span class="icon material-symbols-outlined">calendar_clock</span>Timetable Builder</a>
       <a href="resources.html"                 class="nav-item"><span class="icon material-symbols-outlined">folder</span>Resources</a>
       <a href="attendance.html"                class="nav-item"><span class="icon material-symbols-outlined">fact_check</span>Attendance</a>
@@ -81,49 +83,82 @@
       <a href="notifications.html"             class="nav-item"><span class="icon material-symbols-outlined">notifications</span>Notifications</a>
     </div>
 
-    <div class="px-3 py-4 border-t border-outline-variant space-y-1">
-      <button onclick="PzAuth.logout()" class="nav-item w-full text-left text-red-600 hover:bg-red-50 hover:text-red-700">
-        <span class="icon material-symbols-outlined">logout</span>Logout
+    <div class="px-3 py-4 border-t border-outline-variant/60">
+      <button onclick="PzAuth.logout()" class="w-full bg-red-50 text-red-600 hover:bg-red-100 transition-colors py-2.5 px-4 rounded-xl font-semibold text-xs flex justify-center items-center gap-2">
+        <span class="material-symbols-outlined text-[18px]">logout</span>Sign Out
       </button>
     </div>
   </nav>
 
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-surface border-b border-outline-variant px-4 py-3 space-y-2 z-40">
+    <a class="block py-2 text-sm font-semibold text-secondary" href="dashboard.html">Overview</a>
+    <a class="block py-2 text-sm font-medium text-on-surface-variant" href="timetable.html">Timetable</a>
+    <a class="block py-2 text-sm font-medium text-on-surface-variant" href="attendance.html">Attendance</a>
+    <a class="block py-2 text-sm font-medium text-on-surface-variant" href="analytics.html">Analytics</a>
+    <button onclick="PzAuth.logout()" class="w-full text-left py-2 text-sm font-semibold text-red-600">Sign Out</button>
+  </div>
+
   <!-- Main Content -->
   <main class="flex-1 flex flex-col h-full overflow-y-auto">
-    <div class="bg-surface border-b border-outline-variant px-6 py-4 flex items-center justify-between sticky top-0 z-10">
-      <div>
-        <h1 class="text-xl font-bold text-primary">Department Executive Dashboard</h1>
-        <p class="text-xs text-on-surface-variant mt-0.5">Authorized department metrics, attendance, coursework, and academic risk indicators</p>
+    <!-- Top bar -->
+    <div class="bg-surface border-b border-outline-variant/60 px-4 md:px-8 py-4 flex items-center justify-between sticky top-0 z-20">
+      <div class="flex items-center gap-3">
+        <!-- Mobile Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl border border-outline-variant text-on-surface-variant hover:text-primary">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <div>
+          <h1 class="text-xl md:text-2xl font-extrabold text-primary">Department Executive Dashboard</h1>
+          <p class="text-xs text-on-surface-variant mt-0.5">Department metrics, class performance breakdown, and academic risk indicators</p>
+        </div>
       </div>
-      <a href="../../api/analytics/export?type=DEPARTMENT" target="_blank" class="bg-surface-container border border-outline-variant px-3 py-2 rounded-xl text-xs font-semibold text-primary hover:bg-surface-container-high flex items-center gap-1.5">
-        <span class="material-symbols-outlined text-[16px]">download</span> Export CSV Report
-      </a>
+
+      <div class="flex items-center gap-3">
+        <span class="hidden sm:inline-flex items-center gap-1.5 bg-secondary/10 text-secondary text-xs font-bold px-3 py-1 rounded-full border border-secondary/20">
+          <span class="material-symbols-outlined text-[13px]">supervisor_account</span>HOD
+        </span>
+        <a href="../../api/analytics/export?type=DEPARTMENT" target="_blank" class="bg-surface-container-lowest border border-outline-variant px-3.5 py-2 rounded-xl text-xs font-semibold text-primary hover:bg-surface-container-low transition-all flex items-center gap-1.5 shadow-sm">
+          <span class="material-symbols-outlined text-[16px] text-secondary">download</span>
+          <span class="hidden sm:inline">Export CSV</span>
+        </a>
+      </div>
     </div>
 
-    <div class="p-6 space-y-6 max-w-6xl mx-auto w-full">
+    <!-- Dashboard Content -->
+    <div class="p-4 md:p-8 space-y-6 max-w-6xl mx-auto w-full">
 
       <!-- KPI Summary Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/80 shadow-sm">
-          <span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Total Department Students</span>
-          <p class="text-2xl font-bold text-primary mt-1" id="kpi-students">--</p>
+        <div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/70 shadow-sm hover-card space-y-2">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Total Department Students</span>
+          <p class="text-3xl font-extrabold text-primary tracking-tight" id="kpi-students">--</p>
+          <p class="text-[11px] text-emerald-600 font-medium flex items-center gap-1">
+            <span class="material-symbols-outlined text-[13px]">check_circle</span> Active Department Enrolment
+          </p>
         </div>
-        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/80 shadow-sm">
-          <span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Average Attendance</span>
-          <p class="text-2xl font-bold text-secondary mt-1" id="kpi-att">--%</p>
+
+        <div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/70 shadow-sm hover-card space-y-2">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Average Attendance</span>
+          <p class="text-3xl font-extrabold text-secondary tracking-tight" id="kpi-att">--%</p>
+          <p class="text-[11px] text-secondary font-medium">Semester Overall Percentage</p>
         </div>
-        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/80 shadow-sm">
-          <span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Assignment Completion</span>
-          <p class="text-2xl font-bold text-primary mt-1" id="kpi-assg">--%</p>
+
+        <div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/70 shadow-sm hover-card space-y-2">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Assignment Completion</span>
+          <p class="text-3xl font-extrabold text-primary tracking-tight" id="kpi-assg">--%</p>
+          <p class="text-[11px] text-emerald-600 font-medium">Department Submissions</p>
         </div>
-        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/80 shadow-sm">
-          <span class="text-[10px] font-bold uppercase tracking-wider text-amber-600">Pending Support Tickets</span>
-          <p class="text-2xl font-bold text-amber-600 mt-1" id="kpi-tickets">--</p>
+
+        <div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/70 shadow-sm hover-card space-y-2">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-amber-600">Pending Support Tickets</span>
+          <p class="text-3xl font-extrabold text-amber-600 tracking-tight" id="kpi-tickets">--</p>
+          <p class="text-[11px] text-amber-600 font-medium">Awaiting Faculty Action</p>
         </div>
       </div>
 
       <!-- Class Performance Breakdown Table -->
-      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-sm space-y-4">
+      <div class="bg-surface-container-lowest border border-outline-variant/70 rounded-2xl p-6 shadow-sm space-y-4">
         <h2 class="font-bold text-primary text-base flex items-center gap-2">
           <span class="material-symbols-outlined text-secondary text-[20px]">class</span> Class Performance Breakdown
         </h2>
@@ -131,11 +166,11 @@
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse min-w-[600px]">
             <thead>
-              <tr class="bg-surface border-b border-outline-variant text-[11px] font-bold text-on-surface-variant uppercase">
-                <th class="py-3 px-3">Class Name</th>
-                <th class="py-3 px-3">Students</th>
-                <th class="py-3 px-3">Avg Attendance</th>
-                <th class="py-3 px-3">Pass Rate</th>
+              <tr class="bg-surface border-b border-outline-variant/70 text-[11px] font-bold text-on-surface-variant uppercase">
+                <th class="py-3.5 px-4">Class Name</th>
+                <th class="py-3.5 px-4">Students</th>
+                <th class="py-3.5 px-4">Avg Attendance</th>
+                <th class="py-3.5 px-4">Pass Rate</th>
               </tr>
             </thead>
             <tbody id="class-body" class="divide-y divide-outline-variant/60 text-xs">
@@ -146,7 +181,7 @@
       </div>
 
       <!-- Academic Risk Indicators (Needs Attention List) -->
-      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-sm space-y-4">
+      <div class="bg-surface-container-lowest border border-outline-variant/70 rounded-2xl p-6 shadow-sm space-y-4">
         <h2 class="font-bold text-primary text-base flex items-center gap-2">
           <span class="material-symbols-outlined text-red-600 text-[20px]">warning</span> Academic Risk Indicators (Needs Attention)
         </h2>
@@ -154,10 +189,10 @@
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse min-w-[700px]">
             <thead>
-              <tr class="bg-surface border-b border-outline-variant text-[11px] font-bold text-on-surface-variant uppercase">
-                <th class="py-3 px-3">Student Name</th>
-                <th class="py-3 px-3">Email</th>
-                <th class="py-3 px-3">Indicator Reasons</th>
+              <tr class="bg-surface border-b border-outline-variant/70 text-[11px] font-bold text-on-surface-variant uppercase">
+                <th class="py-3.5 px-4">Student Name</th>
+                <th class="py-3.5 px-4">Email</th>
+                <th class="py-3.5 px-4">Indicator Reasons</th>
               </tr>
             </thead>
             <tbody id="risk-body" class="divide-y divide-outline-variant/60 text-xs">
@@ -170,16 +205,27 @@
     </div>
   </main>
 
+  <script src="../../js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../../js/state.js"></script>
   <script src="../../js/api.js"></script>
   <script src="../../js/auth-client.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
+      // Mobile menu toggle
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      if (btn && menu) {
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+      }
+
       if (!PzAuth.requireAuthGuard('hod')) return;
       
       const session = JSON.parse(localStorage.getItem('pz_auth_session') || 'null');
-      document.getElementById('nav-name').textContent = session.user.name;
-      document.getElementById('nav-email').textContent = session.user.email;
+      if (session?.user) {
+        if (document.getElementById('nav-name'))  document.getElementById('nav-name').textContent  = session.user.name || 'HOD';
+        if (document.getElementById('nav-email')) document.getElementById('nav-email').textContent = session.user.email || 'hod@phazon.edu';
+      }
 
       await loadDashboard();
     });
@@ -187,27 +233,24 @@
     async function loadDashboard() {
       try {
         const res = await PzAPI.authGet('/analytics/department');
-        if (res.success && res.data) {
+        if (res && res.success && res.data) {
           const d = res.data;
-          document.getElementById('kpi-students').textContent = d.totalStudents;
-          document.getElementById('kpi-att').textContent = d.averageAttendance !== null ? `${d.averageAttendance}%` : 'N/A';
-          document.getElementById('kpi-assg').textContent = d.assignmentCompletion !== null ? `${d.assignmentCompletion}%` : 'N/A';
-          document.getElementById('kpi-tickets').textContent = d.pendingSupportTickets || 0;
+          if (document.getElementById('kpi-students')) document.getElementById('kpi-students').textContent = d.totalStudents ?? '--';
+          if (document.getElementById('kpi-att'))      document.getElementById('kpi-att').textContent      = d.averageAttendance !== null ? `${d.averageAttendance}%` : 'N/A';
+          if (document.getElementById('kpi-assg'))     document.getElementById('kpi-assg').textContent     = d.assignmentCompletion !== null ? `${d.assignmentCompletion}%` : 'N/A';
+          if (document.getElementById('kpi-tickets'))  document.getElementById('kpi-tickets').textContent  = d.pendingSupportTickets ?? '0';
 
           // Render Class Comparison
           const classContainer = document.getElementById('class-body');
           if (d.classComparison && d.classComparison.length > 0) {
-            classContainer.innerHTML = '';
-            d.classComparison.forEach(c => {
-              classContainer.innerHTML += `
-                <tr class="hover:bg-surface/50">
-                  <td class="py-3 px-3 font-bold text-primary">${escapeHtml(c.className)}</td>
-                  <td class="py-3 px-3 font-semibold text-on-surface">${c.studentCount}</td>
-                  <td class="py-3 px-3 font-semibold text-secondary">${c.averageAttendance !== null ? c.averageAttendance + '%' : 'N/A'}</td>
-                  <td class="py-3 px-3 font-bold text-green-700">${c.passRate !== null ? c.passRate + '%' : 'N/A'}</td>
-                </tr>
-              `;
-            });
+            classContainer.innerHTML = d.classComparison.map(c => `
+              <tr class="hover:bg-surface-container-low/50 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-primary">${escapeHtml(c.className)}</td>
+                <td class="py-3.5 px-4 font-semibold text-on-surface">${c.studentCount}</td>
+                <td class="py-3.5 px-4 font-semibold text-secondary">${c.averageAttendance !== null ? c.averageAttendance + '%' : 'N/A'}</td>
+                <td class="py-3.5 px-4 font-bold text-emerald-700">${c.passRate !== null ? c.passRate + '%' : 'N/A'}</td>
+              </tr>
+            `).join('');
           } else {
             classContainer.innerHTML = `<tr><td colspan="4" class="py-6 text-center text-xs text-on-surface-variant">No class data available.</td></tr>`;
           }
@@ -215,17 +258,16 @@
           // Render Attention List
           const riskContainer = document.getElementById('risk-body');
           if (d.attentionList && d.attentionList.length > 0) {
-            riskContainer.innerHTML = '';
-            d.attentionList.forEach(r => {
+            riskContainer.innerHTML = d.attentionList.map(r => {
               const reasonsHtml = r.reasons.map(reason => `<span class="bg-red-50 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded border border-red-200 mr-1">${escapeHtml(reason)}</span>`).join(' ');
-              riskContainer.innerHTML += `
-                <tr class="hover:bg-surface/50">
-                  <td class="py-3 px-3 font-bold text-primary">${escapeHtml(r.name)}</td>
-                  <td class="py-3 px-3 text-on-surface-variant">${escapeHtml(r.email)}</td>
-                  <td class="py-3 px-3">${reasonsHtml}</td>
+              return `
+                <tr class="hover:bg-surface-container-low/50 transition-colors">
+                  <td class="py-3.5 px-4 font-bold text-primary">${escapeHtml(r.name)}</td>
+                  <td class="py-3.5 px-4 text-on-surface-variant">${escapeHtml(r.email)}</td>
+                  <td class="py-3.5 px-4">${reasonsHtml}</td>
                 </tr>
               `;
-            });
+            }).join('');
           } else {
             riskContainer.innerHTML = `<tr><td colspan="3" class="py-6 text-center text-xs text-on-surface-variant">No academic risk indicators for department students.</td></tr>`;
           }
