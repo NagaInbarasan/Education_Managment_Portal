@@ -15,12 +15,12 @@
  */
 
 const PzAuth = (() => {
-  const SUPABASE_URL     = 'https://pivqxudlyfnbhxxxuokk.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBpdnF4dWRseWZuYmh4eHh1b2trIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4NTQ2NjYsImV4cCI6MjEwMjQzMDY2Nn0.QyUh4DEBAEc6jcRqbYcpIEfzbHDH9-1ZwHAcF3rUUHs';
-  const AUTH_SESSION_KEY  = 'pz_auth_session';
-  // Resolve API base relative to the current serving origin so the client works
-  // whether the page is accessed via 127.0.0.1 or localhost.
-  const API_BASE = `${window.location.origin}/api`;
+  function getApiBase() {
+    if (window.PzConfig?.API_BASE) return window.PzConfig.API_BASE;
+    const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+    return isLocal ? `${window.location.origin}/api` : 'https://education-managment-portal.onrender.com/api';
+  }
+  const API_BASE = getApiBase();
 
   let _supabase = null;
 

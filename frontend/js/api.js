@@ -6,9 +6,12 @@
  */
 
 const PzAPI = (() => {
-  // PzConfig.API_BASE is defined in js/config.js — resolves to localhost for
-  // local dev and to the Render backend URL when hosted on Vercel.
-  const BASE_URL = (window.PzConfig?.API_BASE) || `${window.location.origin}/api`;
+  function getApiBase() {
+    if (window.PzConfig?.API_BASE) return window.PzConfig.API_BASE;
+    const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+    return isLocal ? `${window.location.origin}/api` : 'https://education-managment-portal.onrender.com/api';
+  }
+  const BASE_URL = getApiBase();
 
   // ── Auth Header Helper ───────────────────────────────────────────
   function _getAuthHeadersSync() {
