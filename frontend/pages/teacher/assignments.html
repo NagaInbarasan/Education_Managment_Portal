@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Phazon Academic — Assignments</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/variables.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/components.css"/>
+  <link rel="stylesheet" href="../../css/layout.css"/>
+  <link rel="stylesheet" href="../../css/responsive.css"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#000000", "secondary": "#4648d4", "background": "#f8f9ff",
+            "surface": "#f8f9ff", "on-surface": "#0d1c2e", "on-surface-variant": "#45464d",
+            "outline-variant": "#c6c6cd", "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#dce9ff", "surface-container": "#e6eeff",
+            "primary-container": "#131b2e", "on-primary-container": "#bec6e0"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .nav-item { @apply flex items-center gap-3 text-on-surface-variant py-2.5 px-4 rounded-lg hover:bg-surface-container hover:text-primary transition-all duration-150 font-medium text-sm; }
+    .nav-item.active { @apply bg-secondary text-white; }
+    .nav-item .icon { @apply text-[20px]; }
+    .nav-section { @apply text-[10px] font-bold uppercase tracking-widest text-on-surface-variant px-4 pt-4 pb-1; }
+  </style>
+</head>
+<body class="bg-background text-on-surface h-full font-sans antialiased flex overflow-hidden">
+
+  <!-- SideNav -->
+  <nav class="hidden md:flex flex-col h-screen w-[260px] z-50 bg-surface border-r border-outline-variant flex-shrink-0">
+    <div class="px-5 pt-6 pb-4 flex items-center gap-3 border-b border-outline-variant">
+      <div class="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center shadow-sm flex-shrink-0">
+        <span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings:'FILL' 1">co_present</span>
+      </div>
+      <div class="min-w-0">
+        <a href="../../index.html" class="font-bold text-primary text-base block truncate leading-tight">Phazon Academic</a>
+        <p class="text-xs text-secondary font-semibold">Teacher Portal</p>
+      </div>
+    </div>
+
+    <div class="px-4 py-3 border-b border-outline-variant">
+      <div class="flex items-center gap-2.5 bg-surface-container rounded-xl px-3 py-2">
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm flex-shrink-0">
+          <span class="material-symbols-outlined text-[16px]">co_present</span>
+        </div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-primary truncate" id="nav-name">Teacher</p>
+          <p class="text-xs text-on-surface-variant truncate" id="nav-email">teacher@phazon.edu</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-3 py-2 space-y-0.5">
+      <p class="nav-section">Overview</p>
+      <a href="dashboard.html"                 class="nav-item"><span class="icon material-symbols-outlined">dashboard</span>Dashboard</a>
+      <p class="nav-section">Academic</p>
+      <a href="attendance.html"                class="nav-item"><span class="icon material-symbols-outlined">fact_check</span>Attendance</a>
+      <a href="assignments.html"               class="nav-item active"><span class="icon material-symbols-outlined">assignment</span>Assignments</a>
+    </div>
+
+    <div class="px-3 py-4 border-t border-outline-variant space-y-1">
+      <button onclick="PzAuth.logout()" class="nav-item w-full text-left text-red-600 hover:bg-red-50 hover:text-red-700">
+        <span class="icon material-symbols-outlined">logout</span>Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col h-full overflow-y-auto">
+    <div class="bg-surface border-b border-outline-variant px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+      <div>
+        <h1 class="text-xl font-bold text-primary">Class Assignments</h1>
+        <p class="text-xs text-on-surface-variant mt-0.5">Create assignments and grade student submissions</p>
+      </div>
+      <span class="inline-flex items-center gap-1.5 bg-secondary/10 text-secondary text-xs font-bold px-3 py-1 rounded-full">
+        <span class="material-symbols-outlined text-[13px]">co_present</span>TEACHER
+      </span>
+    </div>
+
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-lg font-bold text-primary">Your Assignments</h2>
+        <button onclick="showCreateModal()" class="bg-secondary text-white font-semibold py-2 px-4 rounded-lg hover:opacity-90 transition-opacity text-sm flex items-center gap-2 shadow-md">
+          <span class="material-symbols-outlined text-[18px]">add</span> Create Assignment
+        </button>
+      </div>
+
+      <!-- Assignments Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="list-assignments">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Create Modal -->
+  <div id="create-modal" class="hidden fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-xl w-full max-w-lg p-6">
+      <div class="flex justify-between items-center mb-5">
+        <h3 class="font-bold text-primary text-base">New Assignment</h3>
+        <button onclick="hideCreateModal()" class="w-8 h-8 rounded-lg hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-on-surface mb-1.5">Assignment Title *</label>
+          <input id="assg-title" type="text" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-sm bg-surface outline-none focus:border-secondary"/>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-on-surface mb-1.5">Description</label>
+          <textarea id="assg-desc" rows="3" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-sm bg-surface outline-none focus:border-secondary"></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-on-surface mb-1.5">Class *</label>
+            <select id="assg-class" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-sm bg-surface outline-none focus:border-secondary"></select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-on-surface mb-1.5">Subject *</label>
+            <select id="assg-subject" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-sm bg-surface outline-none focus:border-secondary"></select>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-on-surface mb-1.5">Due Date</label>
+            <input id="assg-due" type="date" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-sm bg-surface outline-none focus:border-secondary"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-on-surface mb-1.5">Max Marks</label>
+            <input id="assg-marks" type="number" value="100" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-sm bg-surface outline-none focus:border-secondary"/>
+          </div>
+        </div>
+        <button onclick="submitAssignment()" id="btn-submit" class="w-full bg-secondary text-white font-semibold py-2.5 rounded-lg hover:opacity-90 transition-opacity text-sm mt-4">
+          Publish Assignment
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../js/state.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth-client.js"></script>
+  <script>
+    let assignmentsList = [];
+    let classesMap = {};
+    let teacherAssg = [];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!PzAuth.requireAuthGuard('teacher')) return;
+      
+      const session = JSON.parse(localStorage.getItem('pz_auth_session') || 'null');
+      document.getElementById('nav-name').textContent = session.user.name;
+      document.getElementById('nav-email').textContent = session.user.email;
+
+      await loadTeacherAssignments();
+      await loadAssignments();
+    });
+
+    async function loadTeacherAssignments() {
+      try {
+        const res = await PzAPI.authGet('/teacher-assignments');
+        if (res.success && res.data) {
+          teacherAssg = res.data;
+          const classSel = document.getElementById('assg-class');
+          
+          teacherAssg.forEach(a => {
+            if (a.class) classesMap[a.class.id] = a.class.name;
+          });
+          
+          Object.entries(classesMap).forEach(([id, name]) => {
+            const opt = document.createElement('option');
+            opt.value = id; opt.textContent = name; classSel.appendChild(opt);
+          });
+
+          classSel.addEventListener('change', () => {
+            const subSel = document.getElementById('assg-subject');
+            subSel.innerHTML = '';
+            const cid = classSel.value;
+            const subs = teacherAssg.filter(a => a.class_id === cid);
+            subs.forEach(a => {
+              if (a.subject) {
+                const opt = document.createElement('option');
+                opt.value = a.subject.id; opt.textContent = `${a.subject.name} (${a.subject.code})`;
+                subSel.appendChild(opt);
+              }
+            });
+          });
+          // Trigger change to populate initially
+          if(Object.keys(classesMap).length > 0) classSel.dispatchEvent(new Event('change'));
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function loadAssignments() {
+      try {
+        const res = await PzAPI.authGet('/assignments');
+        if (res.success) {
+          assignmentsList = res.data || [];
+          renderAssignments();
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function renderAssignments() {
+      const container = document.getElementById('list-assignments');
+      container.innerHTML = '';
+      if (assignmentsList.length === 0) {
+        container.innerHTML = `<div class="col-span-full text-sm text-on-surface-variant">No assignments found.</div>`;
+        return;
+      }
+
+      assignmentsList.forEach(a => {
+        const dueStr = a.due_date ? new Date(a.due_date).toLocaleDateString() : 'No Due Date';
+        const statusClass = a.status_derived === 'Closed' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800';
+
+        container.innerHTML += `
+          <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded ${statusClass}">${a.status_derived}</span>
+                <span class="text-xs font-semibold text-on-surface-variant">Max: ${a.max_marks}</span>
+              </div>
+              <h3 class="font-bold text-primary text-base line-clamp-2" title="${a.title}">${a.title}</h3>
+              <p class="text-xs font-semibold text-secondary mt-1">${a.subject?.name || ''} — ${classesMap[a.class_id] || 'Class'}</p>
+              <p class="text-sm text-on-surface-variant mt-3 line-clamp-3">${a.description || 'No description'}</p>
+            </div>
+            <div class="mt-5 flex items-center justify-between border-t border-outline-variant pt-4">
+              <div class="text-xs font-medium text-on-surface-variant">
+                <span class="material-symbols-outlined text-[14px] align-middle mr-1">event</span>${dueStr}
+              </div>
+              <button onclick="alert('Grade submissions view not implemented in this demo.')" class="text-secondary text-xs font-bold hover:underline">Grade Submissions</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function showCreateModal() { document.getElementById('create-modal').classList.remove('hidden'); }
+    function hideCreateModal() { document.getElementById('create-modal').classList.add('hidden'); }
+
+    async function submitAssignment() {
+      const title = document.getElementById('assg-title').value.trim();
+      const description = document.getElementById('assg-desc').value.trim();
+      const class_id = document.getElementById('assg-class').value;
+      const subject_id = document.getElementById('assg-subject').value;
+      const due_date = document.getElementById('assg-due').value;
+      const max_marks = document.getElementById('assg-marks').value;
+
+      if (!title || !class_id || !subject_id) return alert('Title, Class, and Subject are required.');
+
+      const btn = document.getElementById('btn-submit');
+      btn.disabled = true; btn.textContent = 'Publishing...';
+
+      try {
+        const payload = { title, description, class_id, subject_id, due_date, max_marks };
+        const res = await PzAPI.authPost('/assignments', payload);
+        if (res.success) {
+          hideCreateModal();
+          await loadAssignments();
+          // Reset form
+          document.getElementById('assg-title').value = '';
+          document.getElementById('assg-desc').value = '';
+        } else {
+          alert(res.message || 'Error creating assignment');
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      } finally {
+        btn.disabled = false; btn.textContent = 'Publish Assignment';
+      }
+    }
+  </script>
+</body>
+</html>

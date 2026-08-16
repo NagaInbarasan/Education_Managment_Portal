@@ -1,0 +1,6 @@
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .sidebar-layout {
+    flex-direction: column;
+  }
+}

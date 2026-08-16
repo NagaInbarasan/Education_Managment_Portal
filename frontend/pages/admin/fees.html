@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Phazon Academic — Admin Fees & Finance Dashboard</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/variables.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/components.css"/>
+  <link rel="stylesheet" href="../../css/layout.css"/>
+  <link rel="stylesheet" href="../../css/responsive.css"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#000000", "secondary": "#4648d4", "background": "#f8f9ff",
+            "surface": "#f8f9ff", "on-surface": "#0d1c2e", "on-surface-variant": "#45464d",
+            "outline-variant": "#c6c6cd", "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#dce9ff", "surface-container": "#e6eeff",
+            "primary-container": "#131b2e", "on-primary-container": "#bec6e0"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .nav-item { @apply flex items-center gap-3 text-on-surface-variant py-2.5 px-4 rounded-lg hover:bg-surface-container hover:text-primary transition-all duration-150 font-medium text-sm; }
+    .nav-item.active { @apply bg-secondary text-white; }
+    .nav-item .icon { @apply text-[20px]; }
+    .nav-section { @apply text-[10px] font-bold uppercase tracking-widest text-on-surface-variant px-4 pt-4 pb-1; }
+  </style>
+</head>
+<body class="bg-background text-on-surface h-full font-sans antialiased flex overflow-hidden">
+
+  <!-- SideNav -->
+  <nav class="hidden md:flex flex-col h-screen w-[260px] z-50 bg-surface border-r border-outline-variant flex-shrink-0">
+    <div class="px-5 pt-6 pb-4 flex items-center gap-3 border-b border-outline-variant">
+      <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-sm flex-shrink-0">
+        <span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings:'FILL' 1">admin_panel_settings</span>
+      </div>
+      <div class="min-w-0">
+        <a href="../../index.html" class="font-bold text-primary text-base block truncate leading-tight">Phazon Academic</a>
+        <p class="text-xs text-secondary font-semibold">Admin Portal</p>
+      </div>
+    </div>
+
+    <div class="px-4 py-3 border-b border-outline-variant">
+      <div class="flex items-center gap-2.5 bg-surface-container rounded-xl px-3 py-2">
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm flex-shrink-0">
+          <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>
+        </div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-primary truncate" id="nav-name">Admin</p>
+          <p class="text-xs text-on-surface-variant truncate" id="nav-email">admin@phazon.edu</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-3 py-2 space-y-0.5">
+      <p class="nav-section">System</p>
+      <a href="dashboard.html"                 class="nav-item"><span class="icon material-symbols-outlined">dashboard</span>Overview</a>
+      <a href="structure.html"                 class="nav-item"><span class="icon material-symbols-outlined">account_balance</span>Academic Structure</a>
+
+      <p class="nav-section">Academic</p>
+      <a href="../courses/courses.html"         class="nav-item"><span class="icon material-symbols-outlined">menu_book</span>Courses</a>
+      <a href="timetable.html"                 class="nav-item"><span class="icon material-symbols-outlined">calendar_clock</span>Timetable & Rooms</a>
+      <a href="resources.html"                 class="nav-item"><span class="icon material-symbols-outlined">folder</span>Resources</a>
+      <a href="attendance.html"                 class="nav-item"><span class="icon material-symbols-outlined">fact_check</span>Attendance</a>
+      <a href="assignments.html"                class="nav-item"><span class="icon material-symbols-outlined">assignment</span>Assignments</a>
+      <a href="exams.html"                      class="nav-item"><span class="icon material-symbols-outlined">quiz</span>Exams</a>
+      <a href="../grades/grades.html"           class="nav-item"><span class="icon material-symbols-outlined">grade</span>Grades</a>
+      <a href="fees.html"                      class="nav-item active"><span class="icon material-symbols-outlined">payments</span>Fees & Finance</a>
+      <a href="analytics.html"                  class="nav-item"><span class="icon material-symbols-outlined">analytics</span>Analytics</a>
+      <a href="ai.html"                         class="nav-item"><span class="icon material-symbols-outlined">auto_awesome</span>AI Assistant</a>
+      <a href="notifications.html"             class="nav-item"><span class="icon material-symbols-outlined">notifications</span>Notifications</a>
+    </div>
+
+    <div class="px-3 py-4 border-t border-outline-variant space-y-1">
+      <button onclick="PzAuth.logout()" class="nav-item w-full text-left text-red-600 hover:bg-red-50 hover:text-red-700">
+        <span class="icon material-symbols-outlined">logout</span>Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col h-full overflow-y-auto">
+    <div class="bg-surface border-b border-outline-variant px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+      <div>
+        <h1 class="text-xl font-bold text-primary">Institution Academic Fees & Finance Management</h1>
+        <p class="text-xs text-on-surface-variant mt-0.5">Authoritative collection metrics, fee structures, assignments, and payment recording</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="openAssignModal()" class="bg-primary text-white font-semibold py-2 px-4 rounded-xl text-xs flex items-center gap-1.5 shadow-md">
+          <span class="material-symbols-outlined text-[16px]">assignment_ind</span> Assign Fee to Class
+        </button>
+        <button onclick="openStructModal()" class="bg-secondary text-white font-semibold py-2 px-4 rounded-xl text-xs flex items-center gap-1.5 shadow-md">
+          <span class="material-symbols-outlined text-[16px]">add</span> Create Fee Structure
+        </button>
+      </div>
+    </div>
+
+    <div class="p-6 space-y-6 max-w-6xl mx-auto w-full">
+
+      <!-- Financial Metrics Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/80 shadow-sm flex flex-col justify-between">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Total Assigned</span>
+          <p class="text-xl font-bold text-primary mt-1" id="dash-assigned">₹0.00</p>
+        </div>
+        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/80 shadow-sm flex flex-col justify-between">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-green-700">Total Collected</span>
+          <p class="text-xl font-bold text-green-700 mt-1" id="dash-collected">₹0.00</p>
+        </div>
+        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/80 shadow-sm flex flex-col justify-between">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-secondary">Outstanding</span>
+          <p class="text-xl font-bold text-secondary mt-1" id="dash-outstanding">₹0.00</p>
+        </div>
+        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/80 shadow-sm flex flex-col justify-between">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-red-600">Overdue</span>
+          <p class="text-xl font-bold text-red-600 mt-1" id="dash-overdue">₹0.00</p>
+        </div>
+        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/80 shadow-sm flex flex-col justify-between">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Collection Rate</span>
+          <p class="text-xl font-bold text-primary mt-1" id="dash-rate">0%</p>
+        </div>
+      </div>
+
+      <!-- Create Fee Structure Modal -->
+      <div id="struct-modal" class="hidden bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-lg space-y-4">
+        <div class="flex justify-between items-center border-b border-outline-variant pb-3">
+          <h3 class="font-bold text-primary text-base flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary text-[20px]">add_card</span> Create Fee Structure
+          </h3>
+          <button onclick="closeStructModal()" class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+        </div>
+
+        <form onsubmit="submitStructure(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Fee Title</label>
+              <input id="fs-name" type="text" required placeholder="e.g. Semester 3 Tuition Fee" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Fee Category</label>
+              <select id="fs-type" required class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary">
+                <option value="TUITION">Tuition Fee</option>
+                <option value="EXAM">Examination Fee</option>
+                <option value="LAB">Lab Fee</option>
+                <option value="LIBRARY">Library Fee</option>
+                <option value="OTHER">Other Fee</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Amount (₹ INR)</label>
+              <input id="fs-amount" type="number" step="0.01" min="1" required placeholder="50000.00" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Due Date</label>
+              <input id="fs-date" type="date" required class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary"/>
+            </div>
+          </div>
+
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeStructModal()" class="px-4 py-2 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container">Cancel</button>
+            <button type="submit" class="bg-secondary text-white font-semibold px-5 py-2 rounded-lg text-xs shadow-md">Create Fee Structure</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Assign Fee Modal -->
+      <div id="assign-modal" class="hidden bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-lg space-y-4">
+        <div class="flex justify-between items-center border-b border-outline-variant pb-3">
+          <h3 class="font-bold text-primary text-base flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary text-[20px]">assignment_ind</span> Assign Fee Structure to Class
+          </h3>
+          <button onclick="closeAssignModal()" class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+        </div>
+
+        <form onsubmit="submitAssign(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Fee Structure</label>
+              <select id="fa-struct" required class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary">
+                <option value="">Select Fee Structure</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Class Section</label>
+              <select id="fa-class" required class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary">
+                <option value="">Select Class</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeAssignModal()" class="px-4 py-2 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container">Cancel</button>
+            <button type="submit" class="bg-primary text-white font-semibold px-5 py-2 rounded-lg text-xs shadow-md">Assign Fee</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Record Payment Modal -->
+      <div id="pay-modal" class="hidden bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-lg space-y-4">
+        <div class="flex justify-between items-center border-b border-outline-variant pb-3">
+          <h3 class="font-bold text-primary text-base flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary text-[20px]">payments</span> Record Student Payment
+          </h3>
+          <button onclick="closePayModal()" class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+        </div>
+
+        <form onsubmit="submitPayment(event)" class="space-y-4">
+          <input type="hidden" id="pm-sf-id"/>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Payment Amount (₹)</label>
+              <input id="pm-amount" type="number" step="0.01" min="1" required class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Payment Method</label>
+              <select id="pm-method" required class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary">
+                <option value="BANK_TRANSFER">Bank Transfer</option>
+                <option value="CASH">Cash</option>
+                <option value="CARD">Card</option>
+                <option value="ONLINE_SIMULATION">Online Simulation</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="pay-error" class="hidden p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 font-medium"></div>
+
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closePayModal()" class="px-4 py-2 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container">Cancel</button>
+            <button type="submit" class="bg-green-700 text-white font-semibold px-5 py-2 rounded-lg text-xs shadow-md">Record Payment & Generate Receipt</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Configured Fee Structures -->
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-sm space-y-4">
+        <h2 class="font-bold text-primary text-base flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[20px]">account_balance_wallet</span> Configured Fee Structures
+        </h2>
+        <div id="structs-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../../js/state.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth-client.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!PzAuth.requireAuthGuard('admin')) return;
+      
+      const session = JSON.parse(localStorage.getItem('pz_auth_session') || 'null');
+      document.getElementById('nav-name').textContent = session.user.name;
+      document.getElementById('nav-email').textContent = session.user.email;
+
+      await loadDashboard();
+      await loadStructures();
+      await loadDropdowns();
+    });
+
+    async function loadDashboard() {
+      try {
+        const res = await PzAPI.authGet('/fees/dashboard');
+        if (res.success && res.data) {
+          const d = res.data;
+          document.getElementById('dash-assigned').textContent = `₹${d.total_assigned.toLocaleString('en-IN')}`;
+          document.getElementById('dash-collected').textContent = `₹${d.total_collected.toLocaleString('en-IN')}`;
+          document.getElementById('dash-outstanding').textContent = `₹${d.total_outstanding.toLocaleString('en-IN')}`;
+          document.getElementById('dash-overdue').textContent = `₹${d.total_overdue.toLocaleString('en-IN')}`;
+          document.getElementById('dash-rate').textContent = `${d.collection_rate_percent}%`;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function loadStructures() {
+      const container = document.getElementById('structs-grid');
+      try {
+        const res = await PzAPI.authGet('/fees/structures');
+        if (res.success && res.data && res.data.length > 0) {
+          container.innerHTML = '';
+          res.data.forEach(s => {
+            container.innerHTML += `
+              <div class="bg-surface p-4 rounded-xl border border-outline-variant/70 flex flex-col justify-between space-y-3">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <h4 class="font-bold text-primary text-sm">${escapeHtml(s.name)}</h4>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-surface-container text-secondary">${s.fee_type}</span>
+                  </div>
+                  <p class="text-xs text-on-surface-variant mt-1">Due Date: ${s.due_date}</p>
+                </div>
+                <div class="flex items-center justify-between border-t border-outline-variant/60 pt-2 text-xs">
+                  <span class="text-lg font-bold text-primary">₹${parseFloat(s.amount).toLocaleString('en-IN')}</span>
+                  <span class="text-[10px] font-bold text-green-700">Active</span>
+                </div>
+              </div>
+            `;
+          });
+        } else {
+          container.innerHTML = `<div class="col-span-full py-6 text-center text-xs text-on-surface-variant">No fee structures created yet.</div>`;
+        }
+      } catch (err) {
+        container.innerHTML = `<div class="col-span-full py-6 text-center text-xs text-red-600">Error loading structures.</div>`;
+      }
+    }
+
+    async function loadDropdowns() {
+      try {
+        const [stRes, clsRes] = await Promise.all([
+          PzAPI.authGet('/fees/structures'),
+          PzAPI.authGet('/classes')
+        ]);
+
+        if (stRes.success && stRes.data) {
+          const sel = document.getElementById('fa-struct');
+          stRes.data.forEach(s => {
+            const opt = document.createElement('option'); opt.value = s.id; opt.textContent = `${s.name} (₹${s.amount})`; sel.appendChild(opt);
+          });
+        }
+        if (clsRes.success && clsRes.data) {
+          const sel = document.getElementById('fa-class');
+          clsRes.data.forEach(c => {
+            const opt = document.createElement('option'); opt.value = c.id; opt.textContent = c.name; sel.appendChild(opt);
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function openStructModal() { document.getElementById('struct-modal').classList.remove('hidden'); }
+    function closeStructModal() { document.getElementById('struct-modal').classList.add('hidden'); }
+    function openAssignModal() { document.getElementById('assign-modal').classList.remove('hidden'); }
+    function closeAssignModal() { document.getElementById('assign-modal').classList.add('hidden'); }
+    function closePayModal() { document.getElementById('pay-modal').classList.add('hidden'); }
+
+    async function submitStructure(event) {
+      event.preventDefault();
+      const name = document.getElementById('fs-name').value;
+      const fee_type = document.getElementById('fs-type').value;
+      const amount = document.getElementById('fs-amount').value;
+      const due_date = document.getElementById('fs-date').value;
+
+      try {
+        const res = await PzAPI.authPost('/fees/structures', { name, fee_type, amount, due_date });
+        if (res.success) {
+          closeStructModal();
+          await loadStructures();
+          await loadDropdowns();
+        } else {
+          alert(res.message || 'Failed to create fee structure');
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    async function submitAssign(event) {
+      event.preventDefault();
+      const fee_structure_id = document.getElementById('fa-struct').value;
+      const class_id = document.getElementById('fa-class').value;
+
+      try {
+        const res = await PzAPI.authPost('/fees/assign', { fee_structure_id, class_id });
+        if (res.success) {
+          alert(res.message);
+          closeAssignModal();
+          await loadDashboard();
+        } else {
+          alert(res.message);
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>

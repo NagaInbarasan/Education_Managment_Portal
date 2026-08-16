@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>User Profile — Phazon Academic</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/variables.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/components.css"/>
+  <link rel="stylesheet" href="../../css/layout.css"/>
+  <link rel="stylesheet" href="../../css/responsive.css"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#000000", "secondary": "#4648d4", "background": "#f8f9ff",
+            "surface": "#f8f9ff", "on-surface": "#0d1c2e", "on-surface-variant": "#45464d",
+            "outline-variant": "#c6c6cd", "surface-container-lowest": "#ffffff", "surface-container-high": "#dce9ff"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex font-body-md">
+  <!-- SideNavBar -->
+  <aside class="hidden md:flex flex-col h-full py-lg bg-surface text-primary font-label-md fixed left-0 top-0 w-[280px] z-50 border-r border-outline-variant">
+    <div class="px-md mb-xl flex items-center gap-sm">
+      <a href="../../index.html" class="flex items-center gap-sm">
+        <span class="material-symbols-outlined text-headline-lg text-primary">school</span>
+        <div>
+          <h1 class="font-headline-md text-headline-md font-black text-primary">Phazon Academic</h1>
+          <p class="font-label-sm text-label-sm text-secondary font-bold">User Profile</p>
+        </div>
+      </a>
+    </div>
+    <nav class="flex-1 overflow-y-auto flex flex-col gap-xs font-label-md text-label-md">
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high hover:text-primary transition-all" href="../dashboard/dashboard.html">
+        <span class="material-symbols-outlined">dashboard</span>
+        <span>Dashboard</span>
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high hover:text-primary transition-all" href="../courses/courses.html">
+        <span class="material-symbols-outlined">school</span>
+        <span>My Courses</span>
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high hover:text-primary transition-all" href="../attendance/attendance.html">
+        <span class="material-symbols-outlined">fact_check</span>
+        <span>Attendance</span>
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high hover:text-primary transition-all" href="../assignments/assignments.html">
+        <span class="material-symbols-outlined">assignment</span>
+        <span>Assignments</span>
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high hover:text-primary transition-all" href="../exams/exams.html">
+        <span class="material-symbols-outlined">quiz</span>
+        <span>Exams</span>
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high hover:text-primary transition-all" href="../grades/grades.html">
+        <span class="material-symbols-outlined">grade</span>
+        <span>Grades</span>
+      </a>
+    </nav>
+    <div class="px-md mt-auto pt-lg border-t border-outline-variant">
+      <button onclick="PzAuth.logout()" class="w-full bg-secondary text-white py-sm px-md rounded-lg font-label-md flex justify-center items-center gap-sm shadow-sm">
+        <span class="material-symbols-outlined text-[18px]">logout</span>Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content Canvas -->
+  <main class="flex-1 md:ml-[280px] p-margin-mobile md:p-lg max-w-container-max mx-auto w-full">
+    <header class="mb-lg">
+      <h1 class="font-display-lg text-primary">Academic User Profile</h1>
+      <p class="font-body-lg text-on-surface-variant mt-xs">Personal details, academic credentials, and portal role.</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+      <!-- Profile Card -->
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col items-center text-center shadow-sm">
+        <div class="w-20 h-20 rounded-full bg-primary flex items-center justify-center text-white font-bold text-2xl mb-md">
+          <span class="material-symbols-outlined text-[40px]">person</span>
+        </div>
+        <h2 class="font-headline-md text-primary font-bold" data-pz-username>Student</h2>
+        <p class="font-body-sm text-on-surface-variant mb-md" data-pz-useremail>student@phazon.edu</p>
+        <div class="w-full bg-surface-container rounded-lg p-sm text-left space-y-xs">
+          <div class="flex justify-between font-body-sm">
+            <span class="text-on-surface-variant">Portal Role:</span>
+            <span class="font-bold text-secondary uppercase" id="pz-prof-role">STUDENT</span>
+          </div>
+          <div class="flex justify-between font-body-sm">
+            <span class="text-on-surface-variant">Department:</span>
+            <span class="font-bold text-primary" id="pz-prof-dept">AI & Data Science</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Academic Summary -->
+      <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm flex flex-col justify-between">
+        <h3 class="font-headline-md text-primary mb-md">Academic Overview</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-md mb-md">
+          <div class="bg-surface-container p-md rounded-lg text-center">
+            <div class="font-display-lg text-secondary">92%</div>
+            <div class="font-label-sm text-on-surface-variant">Attendance Rate</div>
+          </div>
+          <div class="bg-surface-container p-md rounded-lg text-center">
+            <div class="font-display-lg text-primary">3.85</div>
+            <div class="font-label-sm text-on-surface-variant">Current GPA</div>
+          </div>
+          <div class="bg-surface-container p-md rounded-lg text-center">
+            <div class="font-display-lg text-secondary">3</div>
+            <div class="font-label-sm text-on-surface-variant">Enrolled Courses</div>
+          </div>
+        </div>
+        <div class="flex gap-md">
+          <a href="../progress/progress.html" class="flex-1 bg-primary text-white font-label-md py-sm rounded-lg text-center hover:opacity-90 transition-opacity">
+            View Performance Report
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/state.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth-client.js"></script>
+  <script src="../../js/ui.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!PzAuth.requireAuthGuard()) return;
+      PzUI.populateUserName();
+      const role = PzState.getRole();
+      if (role) {
+        document.getElementById('pz-prof-role').textContent = role.toUpperCase();
+      }
+    });
+  </script>
+</body>
+</html>

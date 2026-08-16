@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Lesson — Phazon</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/variables.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/components.css"/>
+  <link rel="stylesheet" href="../../css/layout.css"/>
+  <link rel="stylesheet" href="../../css/responsive.css"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline": "#76777d","tertiary-fixed-dim": "#adc6ff","tertiary-container": "#001a42",
+            "primary-fixed-dim": "#bec6e0","surface-dim": "#ccdbf3","on-tertiary": "#ffffff",
+            "surface-variant": "#d5e3fc","tertiary-fixed": "#d8e2ff","surface-container-high": "#dce9ff",
+            "surface-container-highest": "#d5e3fc","on-tertiary-fixed": "#001a42","error": "#ba1a1a",
+            "on-primary-container": "#7c839b","on-tertiary-fixed-variant": "#004395","surface-bright": "#f8f9ff",
+            "on-background": "#0d1c2e","on-error": "#ffffff","inverse-surface": "#233144",
+            "on-secondary-container": "#fffbff","outline-variant": "#c6c6cd","primary-fixed": "#dae2fd",
+            "on-primary-fixed-variant": "#3f465c","on-tertiary-container": "#3980f4","surface-container": "#e6eeff",
+            "on-error-container": "#93000a","background": "#f8f9ff","on-secondary-fixed": "#07006c",
+            "inverse-on-surface": "#eaf1ff","surface-container-lowest": "#ffffff","secondary-fixed-dim": "#c0c1ff",
+            "secondary": "#4648d4","secondary-fixed": "#e1e0ff","inverse-primary": "#bec6e0",
+            "on-primary": "#ffffff","primary": "#000000","surface-container-low": "#eff4ff",
+            "surface-tint": "#565e74","surface": "#f8f9ff","primary-container": "#131b2e",
+            "tertiary": "#000000","on-secondary-fixed-variant": "#2f2ebe","on-primary-fixed": "#131b2e",
+            "on-secondary": "#ffffff","secondary-container": "#6063ee","on-surface": "#0d1c2e",
+            "error-container": "#ffdad6","on-surface-variant": "#45464d"
+          },
+          "borderRadius": { "DEFAULT": "0.25rem","lg": "0.5rem","xl": "0.75rem","full": "9999px" },
+          "spacing": {
+            "sm": "12px","base": "8px","container-max": "1280px","xl": "64px","lg": "40px",
+            "xs": "4px","md": "24px","margin-mobile": "16px","gutter": "24px"
+          },
+          "fontFamily": {
+            "headline-lg": ["Outfit"],"label-sm": ["Inter"],"headline-md": ["Outfit"],
+            "body-md": ["Inter"],"body-lg": ["Inter"],"display-lg": ["Outfit"],
+            "headline-lg-mobile": ["Outfit"],"display-lg-mobile": ["Outfit"],"label-md": ["Inter"],"body-sm": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg": ["32px", {"lineHeight":"40px","fontWeight":"600"}],
+            "label-sm": ["12px", {"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"500"}],
+            "headline-md": ["24px", {"lineHeight":"32px","fontWeight":"600"}],
+            "body-md": ["16px", {"lineHeight":"24px","fontWeight":"400"}],
+            "body-lg": ["18px", {"lineHeight":"28px","fontWeight":"400"}],
+            "display-lg": ["48px", {"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],
+            "headline-lg-mobile": ["24px", {"lineHeight":"32px","fontWeight":"600"}],
+            "display-lg-mobile": ["32px", {"lineHeight":"40px","letterSpacing":"-0.01em","fontWeight":"700"}],
+            "label-md": ["14px", {"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"600"}],
+            "body-sm": ["14px", {"lineHeight":"20px","fontWeight":"400"}]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .icon-fill { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+    /* ── Inline code (plain text lessons) ──────────────────────── */
+    #pz-lesson-content code, .pz-inline-code {
+      background: #dce9ff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #4648d4;
+    }
+    #pz-lesson-content p { margin-bottom: 1rem; }
+
+    /* ── Section label ─────────────────────────────────────────── */
+    .pz-section-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #4648d4;
+      margin-bottom: 12px;
+    }
+    .pz-section-label .material-symbols-outlined { font-size: 18px; }
+    .pz-section-label--light { color: #adc6ff; }
+
+    /* ── Explanation block ─────────────────────────────────────── */
+    .pz-explanation-block {
+      background: #f0f4ff;
+      border-left: 4px solid #4648d4;
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .pz-explanation-body { color: #0d1c2e; line-height: 1.75; font-size: 15px; }
+    .pz-explanation-body p { margin-bottom: 12px; }
+    .pz-explanation-body p:last-child { margin-bottom: 0; }
+    .pz-explanation-list { padding-left: 20px; margin-bottom: 12px; }
+    .pz-explanation-list li { margin-bottom: 6px; line-height: 1.65; }
+    .pz-ol { list-style: decimal; }
+
+    /* ── Code example block ────────────────────────────────────── */
+    .pz-example-block {
+      background: #131b2e;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .pz-example-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px 8px;
+    }
+    .pz-copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #adc6ff;
+      background: none;
+      border: 1px solid #3f465c;
+      border-radius: 6px;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pz-copy-btn:hover { background: #1e2a42; border-color: #4648d4; color: #fff; }
+    .pz-copy-btn .material-symbols-outlined { font-size: 15px; }
+    .pz-code-pre {
+      margin: 0;
+      padding: 16px 20px 20px;
+      overflow-x: auto;
+      background: transparent;
+    }
+    .pz-code-block {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #dae2fd;
+      background: transparent;
+      white-space: pre;
+      display: block;
+    }
+    .pz-example-caption {
+      padding: 10px 20px 14px;
+      font-size: 12px;
+      color: #7c839b;
+      border-top: 1px solid #1e2a42;
+      margin: 0;
+      font-style: italic;
+    }
+
+    /* ── Practice questions ────────────────────────────────────── */
+    .pz-questions-block {
+      background: #fff;
+      border: 1px solid #c6c6cd;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .pz-questions-intro {
+      font-size: 14px;
+      color: #45464d;
+      margin-bottom: 20px;
+    }
+    .pz-questions-list { display: flex; flex-direction: column; gap: 20px; }
+    .pz-question-card {
+      background: #f8f9ff;
+      border: 1px solid #e6eeff;
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .pz-question-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0d1c2e;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .pz-q-num {
+      color: #4648d4;
+      margin-right: 4px;
+    }
+    .pz-choices { display: flex; flex-direction: column; gap: 8px; }
+    .pz-choice-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1.5px solid #c6c6cd;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      text-align: left;
+      font-size: 14px;
+      color: #0d1c2e;
+      transition: all 0.15s;
+      width: 100%;
+    }
+    .pz-choice-btn:hover:not(:disabled) { border-color: #4648d4; background: #eff4ff; }
+    .pz-choice-btn:disabled { cursor: default; }
+    .pz-choice-letter {
+      min-width: 26px;
+      height: 26px;
+      background: #e6eeff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #4648d4;
+      flex-shrink: 0;
+    }
+    /* Correct answer */
+    .pz-choice--correct {
+      border-color: #1b7f37 !important;
+      background: #e8f5e9 !important;
+    }
+    .pz-choice--correct .pz-choice-letter {
+      background: #1b7f37;
+      color: #fff;
+    }
+    /* Wrong answer */
+    .pz-choice--wrong {
+      border-color: #ba1a1a !important;
+      background: #ffdad6 !important;
+    }
+    .pz-choice--wrong .pz-choice-letter {
+      background: #ba1a1a;
+      color: #fff;
+    }
+    /* Neutral (other unchosen options) */
+    .pz-choice--neutral { opacity: 0.55; }
+
+    /* Feedback strip */
+    .pz-feedback {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      line-height: 1.55;
+    }
+    .pz-feedback .material-symbols-outlined { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .pz-feedback--correct { background: #e8f5e9; color: #1b7f37; }
+    .pz-feedback--wrong   { background: #ffdad6; color: #ba1a1a; }
+
+    /* ── Mini task ─────────────────────────────────────────────── */
+    .pz-mini-task {
+      background: linear-gradient(135deg, #eff4ff 0%, #e1e0ff 100%);
+      border: 1.5px solid #c0c1ff;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .pz-task-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0d1c2e;
+      margin-bottom: 12px;
+    }
+    .pz-task-instructions {
+      font-size: 14px;
+      color: #0d1c2e;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .pz-task-instructions p { margin-bottom: 8px; }
+    .pz-task-instructions ol, .pz-task-instructions ul { padding-left: 20px; }
+    .pz-task-instructions li { margin-bottom: 4px; }
+    .pz-task-tip {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #45464d;
+      margin-bottom: 16px;
+    }
+    .pz-task-tip .material-symbols-outlined { font-size: 17px; color: #f59e0b; flex-shrink: 0; margin-top: 1px; }
+    .pz-task-footer { display: flex; align-items: center; gap: 12px; }
+    .pz-task-mark-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: #4648d4;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .pz-task-mark-btn:hover { opacity: 0.9; }
+    .pz-task-mark-btn .material-symbols-outlined { font-size: 18px; }
+    .pz-task-done-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1b7f37;
+    }
+    .pz-task-done-label .material-symbols-outlined { font-size: 18px; color: #1b7f37; }
+
+
+    /* ══════════════════════════════════════════════════════════════
+       CODE EDITOR (Step 20.1)  — pz-ce-* namespace
+    ══════════════════════════════════════════════════════════════ */
+
+    /* Mount wrapper for editor-mode mini tasks */
+    .pz-mini-task--editor {
+      background: linear-gradient(135deg, #0d1c2e 0%, #131b2e 100%);
+      border-color: #3f465c;
+      padding: 0;
+      overflow: hidden;
+    }
+    .pz-mini-task--editor .pz-section-label {
+      color: #adc6ff;
+      padding: 16px 20px 0;
+    }
+
+    /* Root editor container */
+    .pz-code-editor {
+      border-radius: 12px;
+      overflow: hidden;
+      font-family: inherit;
+    }
+
+    /* Header bar */
+    .pz-ce-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px 10px;
+      background: #0d1c2e;
+      border-bottom: 1px solid #1e2a42;
+    }
+    .pz-ce-header .pz-section-label { margin-bottom: 0; }
+
+    /* Toolbar (Run / Reset) */
+    .pz-ce-toolbar { display: flex; gap: 8px; align-items: center; }
+    .pz-ce-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: 1.5px solid transparent;
+      font-family: inherit;
+    }
+    .pz-ce-btn .material-symbols-outlined { font-size: 16px; }
+    .pz-ce-btn--run {
+      background: #4648d4;
+      color: #fff;
+      border-color: #4648d4;
+    }
+    .pz-ce-btn--run:hover { background: #3a3cbd; border-color: #3a3cbd; }
+    .pz-ce-btn--ran { transform: scale(0.96); }
+    .pz-ce-btn--reset {
+      background: transparent;
+      color: #adc6ff;
+      border-color: #3f465c;
+    }
+    .pz-ce-btn--reset:hover { background: #1e2a42; border-color: #4648d4; color: #fff; }
+    .pz-ce-btn--complete {
+      background: #1b7f37;
+      color: #fff;
+      border-color: #1b7f37;
+    }
+    .pz-ce-btn--complete:hover { background: #156b2e; }
+
+    /* Instructions strip */
+    .pz-ce-instructions {
+      background: #111827;
+      border-bottom: 1px solid #1e2a42;
+      padding: 14px 20px;
+    }
+    .pz-ce-instr-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #7c839b;
+      margin-bottom: 8px;
+    }
+    .pz-ce-instr-label .material-symbols-outlined { font-size: 15px; }
+    .pz-ce-instr-body {
+      color: #dae2fd;
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+    .pz-ce-instr-body p { margin-bottom: 6px; }
+    .pz-ce-list {
+      padding-left: 20px;
+      color: #dae2fd;
+      margin: 0;
+    }
+    .pz-ce-list li { margin-bottom: 5px; }
+    .pz-ce-tip {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-top: 10px;
+      font-size: 12.5px;
+      color: #7c839b;
+    }
+    .pz-ce-tip .material-symbols-outlined { font-size: 15px; color: #f59e0b; flex-shrink: 0; margin-top: 1px; }
+
+    /* Workspace: editor | preview side-by-side */
+    .pz-ce-workspace {
+      display: grid;
+      grid-template-columns: 1fr 10px 1fr;
+      height: 380px;
+      background: #131b2e;
+    }
+
+    /* Pane labels */
+    .pz-ce-pane-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #7c839b;
+      background: #0d1c2e;
+      border-bottom: 1px solid #1e2a42;
+      user-select: none;
+    }
+    .pz-ce-pane-label .material-symbols-outlined { font-size: 14px; }
+    .pz-ce-preview-hint {
+      margin-left: auto;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      color: #45464d;
+      font-weight: 500;
+      text-transform: none;
+    }
+
+    /* Editor pane */
+    .pz-ce-editor-pane {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+    }
+    .pz-ce-textarea {
+      flex: 1;
+      resize: none;
+      outline: none;
+      border: none;
+      background: #1a2333;
+      color: #dae2fd;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13.5px;
+      line-height: 1.65;
+      padding: 14px 16px;
+      tab-size: 2;
+      white-space: pre;
+      overflow: auto;
+    }
+    .pz-ce-textarea::placeholder { color: #3f465c; }
+    .pz-ce-textarea:focus { outline: none; }
+
+    /* Drag divider */
+    .pz-ce-divider {
+      background: #1e2a42;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: col-resize;
+      user-select: none;
+    }
+    .pz-ce-divider .material-symbols-outlined { font-size: 14px; color: #3f465c; transform: rotate(90deg); }
+
+    /* Preview pane */
+    .pz-ce-preview-pane {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+      border-left: 1px solid #1e2a42;
+    }
+    .pz-ce-iframe {
+      flex: 1;
+      border: none;
+      background: #fff;
+      width: 100%;
+    }
+
+    /* Footer */
+    .pz-ce-footer {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 20px;
+      background: #0d1c2e;
+      border-top: 1px solid #1e2a42;
+    }
+    .pz-ce-done-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #4ade80;
+    }
+    .pz-ce-done-label .material-symbols-outlined { font-size: 18px; color: #4ade80; }
+
+    /* ── Responsive: stack on mobile ──────────────────────────── */
+    @media (max-width: 768px) {
+      .pz-ce-workspace {
+        grid-template-columns: 1fr;
+        grid-template-rows: 260px 6px 260px;
+        height: auto;
+      }
+      .pz-ce-divider {
+        cursor: row-resize;
+      }
+      .pz-ce-divider .material-symbols-outlined { transform: none; }
+      .pz-ce-preview-pane { border-left: none; border-top: 1px solid #1e2a42; }
+    }
+
+    /* ── Responsive: existing mini-task padding ─────────────── */
+    @media (max-width: 640px) {
+      .pz-explanation-block, .pz-questions-block, .pz-mini-task { padding: 16px; }
+      .pz-example-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .pz-mini-task--editor { padding: 0; }
+    }
+
+    /* ── Complete button states ────────────────────────────────── */
+    /* Locked (before first successful run) */
+    .pz-ce-btn--locked {
+      background: #1e2a42 !important;
+      color: #45464d !important;
+      border-color: #1e2a42 !important;
+      cursor: not-allowed !important;
+    }
+    /* Unlocked (validation passed) — animated pulse to draw attention */
+    .pz-ce-btn--unlocked {
+      background: #1b7f37 !important;
+      color: #fff !important;
+      border-color: #1b7f37 !important;
+      animation: pz-ce-pulse 0.6s ease-out;
+    }
+    @keyframes pz-ce-pulse {
+      0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(27,127,55,0.7); }
+      50%  { transform: scale(1.04); box-shadow: 0 0 0 8px rgba(27,127,55,0); }
+      100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(27,127,55,0); }
+    }
+    .pz-ce-btn--unlocked:hover { background: #156b2e !important; }
+    .pz-ce-btn--complete { background: #1b7f37; color: #fff; border-color: #1b7f37; }
+    .pz-ce-btn--complete:hover { background: #156b2e; }
+
+    /* Validation feedback strip */
+    .pz-ce-validation {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 500;
+      border-top: 1px solid #1e2a42;
+      background: #0d1420;
+      transition: all 0.2s;
+    }
+    .pz-ce-validation--hidden { display: none; }
+    .pz-ce-validation--pass {
+      color: #4ade80;
+      background: #071811;
+      border-color: #1b7f37;
+    }
+    .pz-ce-validation--fail {
+      color: #f87171;
+      background: #1a0808;
+      border-color: #ba1a1a;
+    }
+    .pz-ce-validation .material-symbols-outlined { font-size: 17px; flex-shrink: 0; }
+
+    /* Footer done label */
+    .pz-ce-footer { display: flex; align-items: center; gap: 14px; padding: 14px 20px; background: #0d1c2e; border-top: 1px solid #1e2a42; }
+    .pz-ce-done-label { display: flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; color: #4ade80; }
+    .pz-ce-done-label .material-symbols-outlined { font-size: 18px; color: #4ade80; }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex">
+
+  <!-- Sidebar Nav -->
+  <nav class="hidden md:flex fixed left-0 top-0 h-full w-[280px] z-50 border-r border-outline-variant bg-surface flex-col py-lg">
+    <div class="px-md mb-xl">
+      <div class="flex items-center gap-sm">
+        <div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-on-primary-container">token</span>
+        </div>
+        <div>
+          <a href="../../index.html" class="font-headline-md text-headline-md font-black text-primary block">Phazon Intelligence</a>
+          <p class="font-label-sm text-label-sm text-on-surface-variant">Career Mastery</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1 flex flex-col gap-xs font-label-md text-label-md pr-md">
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../dashboard/dashboard.html">
+        <span class="material-symbols-outlined">dashboard</span>Dashboard
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../skills/skill-profile.html">
+        <span class="material-symbols-outlined">psychology</span>My Skills
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../career/career-path.html">
+        <span class="material-symbols-outlined">alt_route</span>Career Path
+      </a>
+      <a class="flex items-center gap-sm bg-primary-container text-on-primary-container border-l-4 border-secondary rounded-r-full py-3 px-md" href="courses.html">
+        <span class="material-symbols-outlined icon-fill">school</span>Courses
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../assessment/skill-assessment.html">
+        <span class="material-symbols-outlined">quiz</span>Assessments
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../jobs/job-recommendations.html">
+        <span class="material-symbols-outlined">work</span>Jobs
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../badges/badges.html">
+        <span class="material-symbols-outlined">military_tech</span>Badges
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../certificates/certificates.html">
+        <span class="material-symbols-outlined">verified</span>Certificates
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../typing/typing-practice.html">
+        <span class="material-symbols-outlined">keyboard</span>Typing Practice
+      </a>
+    </div>
+    <div class="px-md mt-auto pt-lg">
+      <div class="flex flex-col gap-xs font-label-md text-label-md">
+        <a class="flex items-center gap-sm text-on-surface-variant py-3 px-sm hover:text-primary transition-colors" href="#">
+          <span class="material-symbols-outlined">help</span>Help
+        </a>
+        <a class="flex items-center gap-sm text-on-surface-variant py-3 px-sm hover:text-primary transition-colors" href="../auth/auth.html">
+          <span class="material-symbols-outlined">logout</span>Logout
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="flex-1 md:ml-[280px] min-w-0 flex flex-col">
+
+    <!-- Top bar -->
+    <div id="pz-lesson-topbar" class="sticky top-0 z-40 bg-surface border-b border-outline-variant px-md py-sm flex items-center gap-sm">
+      <a id="pz-back-btn" href="courses.html"
+         class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">
+        <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+        <span class="hidden sm:inline">Back to Courses</span>
+      </a>
+      <span class="text-outline-variant mx-1">/</span>
+      <span id="pz-topbar-course" class="font-label-md text-label-md text-on-surface-variant truncate"></span>
+      <span class="text-outline-variant mx-1 hidden sm:inline">/</span>
+      <span id="pz-topbar-lesson" class="font-label-md text-label-md text-primary font-semibold truncate hidden sm:inline"></span>
+      <!-- Progress mini bar -->
+      <div class="ml-auto flex items-center gap-sm">
+        <div class="hidden sm:block w-24 bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+          <div id="pz-topbar-progress-bar" class="h-full bg-secondary rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+        <span id="pz-topbar-pct" class="font-label-sm text-label-sm text-secondary font-bold"></span>
+      </div>
+    </div>
+
+    <div class="flex flex-1 overflow-hidden">
+
+      <!-- Lesson Sidebar (module outline) -->
+      <aside id="pz-lesson-sidebar" class="hidden lg:flex w-72 xl:w-80 flex-col border-r border-outline-variant bg-surface-container-lowest overflow-y-auto shrink-0 py-md">
+        <div class="px-md mb-md">
+          <h2 id="pz-sidebar-course-title" class="font-headline-md text-[16px] text-primary font-semibold leading-snug"></h2>
+          <div id="pz-sidebar-progress-wrap" class="mt-sm">
+            <div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-1">
+              <span id="pz-sidebar-lessons-done"></span>
+              <span id="pz-sidebar-pct" class="text-secondary font-bold"></span>
+            </div>
+            <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+              <div id="pz-sidebar-bar" class="h-full bg-secondary rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Module list populated by JS -->
+        <div id="pz-module-list" class="flex flex-col gap-xs px-sm"></div>
+      </aside>
+
+      <!-- Lesson Content Area -->
+      <div class="flex-1 overflow-y-auto">
+        <div class="max-w-3xl mx-auto px-md md:px-lg py-lg">
+
+          <!-- Empty / loading state -->
+          <div id="pz-lesson-loading" class="flex flex-col items-center py-xl gap-md text-on-surface-variant">
+            <span class="material-symbols-outlined text-[48px] animate-spin">refresh</span>
+            <p class="font-body-md text-body-md">Loading lesson…</p>
+          </div>
+
+          <!-- Lesson content (hidden until loaded) -->
+          <div id="pz-lesson-view" class="hidden flex-col gap-lg">
+
+            <!-- Lesson meta -->
+            <div class="border-b border-outline-variant pb-md">
+              <div id="pz-lesson-module-label" class="font-label-sm text-label-sm text-secondary mb-xs uppercase tracking-wide"></div>
+              <h1 id="pz-lesson-title" class="font-display-lg-mobile md:text-[28px] font-bold text-primary leading-tight mb-sm"></h1>
+              <div class="flex items-center gap-md flex-wrap">
+                <div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
+                  <span class="material-symbols-outlined text-[16px]">schedule</span>
+                  <span>~5 min read</span>
+                </div>
+                <div id="pz-lesson-status-badge" class="hidden font-label-sm text-label-sm bg-secondary-fixed text-on-secondary-fixed px-2 py-1 rounded-full flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1">check_circle</span>
+                  Completed
+                </div>
+              </div>
+            </div>
+
+            <!-- Lesson body -->
+            <div id="pz-lesson-content" class="font-body-lg text-body-lg text-on-surface leading-relaxed space-y-4 min-h-[200px]"></div>
+
+            <!-- Navigation -->
+            <div class="pt-lg border-t border-outline-variant flex items-center justify-between gap-md flex-wrap">
+              <button id="pz-prev-btn"
+                      class="flex items-center gap-2 px-md py-sm rounded-lg border border-outline-variant font-label-md text-label-md text-on-surface-variant hover:border-secondary hover:text-primary transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                Previous
+              </button>
+
+              <div class="flex items-center gap-sm">
+                <button id="pz-complete-btn"
+                        class="bg-secondary text-on-secondary font-label-md text-label-md py-sm px-lg rounded-lg hover:opacity-90 transition-opacity shadow-sm flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                  Complete Lesson
+                </button>
+              </div>
+
+              <button id="pz-next-btn"
+                      class="flex items-center gap-2 px-md py-sm rounded-lg border border-outline-variant font-label-md text-label-md text-on-surface-variant hover:border-secondary hover:text-primary transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+                Next
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Course complete celebration -->
+          <div id="pz-course-complete" class="hidden flex-col items-center text-center py-xl gap-md">
+            <div class="w-24 h-24 rounded-full bg-secondary flex items-center justify-center shadow-xl mb-md">
+              <span class="material-symbols-outlined text-on-secondary text-[48px]" style="font-variation-settings: 'FILL' 1">emoji_events</span>
+            </div>
+            <h2 id="pz-complete-title" class="font-display-lg-mobile text-display-lg-mobile text-primary font-bold"></h2>
+            <p id="pz-complete-subtitle" class="font-body-lg text-body-lg text-on-surface-variant max-w-md"></p>
+            <div class="flex flex-wrap gap-md justify-center mt-md">
+              <a href="courses.html"
+                 class="bg-primary text-on-primary font-label-md py-sm px-lg rounded-lg hover:opacity-90 transition-opacity shadow-sm flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">school</span>
+                Browse Courses
+              </a>
+              <a href="../badges/badges.html"
+                 class="border border-secondary text-secondary font-label-md py-sm px-lg rounded-lg hover:bg-secondary-fixed transition-colors flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">military_tech</span>
+                View Badges
+              </a>
+              <a href="../dashboard/dashboard.html"
+                 class="border border-outline-variant text-on-surface-variant font-label-md py-sm px-lg rounded-lg hover:border-secondary hover:text-primary transition-all flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">dashboard</span>
+                Dashboard
+              </a>
+            </div>
+          </div>
+
+          <!-- Error / not found -->
+          <div id="pz-lesson-error" class="hidden flex-col items-center py-xl gap-md text-on-surface-variant">
+            <span class="material-symbols-outlined text-[48px]">error_outline</span>
+            <p class="font-body-md text-body-md">Course or lesson not found.</p>
+            <a href="courses.html" class="text-secondary hover:underline font-label-md text-label-md">Back to Courses</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/auth-client.js"></script>
+  <script src="../../js/state.js"></script>
+  <script src="../../js/data.js"></script>
+  <script src="../../js/ui.js"></script>
+  <script src="../../js/app.js"></script>
+  <script src="../../js/courses.js"></script>
+  <script src="../../js/badges.js"></script>
+  <script src="../../js/code-editor.js"></script>
+  <script src="../../js/course-detail.js"></script>
+</body>
+</html>

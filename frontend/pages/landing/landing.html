@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Phazon Academic — Management & Intelligence Platform</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/variables.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/components.css"/>
+  <link rel="stylesheet" href="../../css/layout.css"/>
+  <link rel="stylesheet" href="../../css/responsive.css"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#000000",
+            "secondary": "#4648d4",
+            "secondary-container": "#6063ee",
+            "background": "#f8f9ff",
+            "surface": "#f8f9ff",
+            "on-surface": "#0d1c2e",
+            "on-surface-variant": "#45464d",
+            "outline-variant": "#c6c6cd",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#eff4ff",
+            "surface-container-high": "#dce9ff",
+            "primary-container": "#131b2e",
+            "on-primary-container": "#7c839b",
+          },
+          borderRadius: { "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+          fontFamily: {
+            "headline-lg": ["Outfit"], "headline-md": ["Outfit"], "display-lg": ["Outfit"],
+            "body-md": ["Inter"], "body-sm": ["Inter"], "label-md": ["Inter"], "label-sm": ["Inter"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden">
+  <!-- TopNavBar -->
+  <nav class="bg-surface w-full sticky top-0 z-50 shadow-sm border-b border-outline-variant transition-all duration-200 ease-in-out">
+    <div class="flex justify-between items-center px-lg py-sm max-w-container-max mx-auto">
+      <div class="flex items-center gap-base">
+        <a href="landing.html" class="flex items-center gap-base">
+          <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white font-bold shadow-sm">
+            <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">school</span>
+          </div>
+          <span class="font-headline-md text-headline-md font-bold text-secondary">Phazon Academic</span>
+        </a>
+      </div>
+      <div class="hidden md:flex items-center gap-md">
+        <a class="font-body-md text-body-md text-secondary font-bold border-b-2 border-secondary pb-1" href="landing.html">Home</a>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors pb-1" href="../courses/courses.html">Courses</a>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors pb-1" href="../auth/auth.html">Portal Login</a>
+        <div class="flex gap-base ml-sm">
+          <a href="../auth/auth.html" class="bg-secondary text-white font-label-md px-md py-2 rounded-lg hover:opacity-90 transition-colors shadow-sm flex items-center gap-xs">
+            <span class="material-symbols-outlined text-[18px]">login</span>
+            Sign In
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="relative pt-xl pb-xl px-margin-mobile md:px-lg max-w-container-max mx-auto overflow-hidden min-h-[75vh] flex items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-lg items-center w-full">
+        <div class="flex flex-col gap-md z-10">
+          <span class="px-3 py-1 bg-secondary/10 text-secondary font-bold text-xs rounded-full w-fit flex items-center gap-xs">
+            <span class="material-symbols-outlined text-[16px]">psychology</span> Next-Gen Academic Intelligence Platform
+          </span>
+          <h1 class="font-display-lg text-display-lg text-on-surface leading-tight">
+            Academic Excellence Powered by <span class="text-secondary">Intelligence</span>
+          </h1>
+          <p class="font-body-lg text-body-lg text-on-surface-variant max-w-[520px]">
+            Comprehensive Academic Management Platform supporting Students, Teachers, HODs, and Administrators with attendance tracking, course progress, grading, and AI performance insights.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-base mt-sm">
+            <a href="../auth/auth.html" class="bg-primary text-white font-label-md px-md py-sm rounded-lg hover:bg-on-surface-variant transition-colors shadow-sm flex items-center justify-center gap-xs">
+              <span>Access Portal</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </a>
+            <a href="../courses/courses.html" class="border border-outline-variant text-on-surface font-label-md px-md py-sm rounded-lg hover:bg-surface-container-low transition-colors flex items-center justify-center gap-xs">
+              <span class="material-symbols-outlined text-[18px]">school</span>
+              Explore Academic Catalog
+            </a>
+          </div>
+        </div>
+
+        <!-- Academic Features Card Preview -->
+        <div class="bg-surface-container-lowest p-lg rounded-2xl border border-outline-variant shadow-lg grid grid-cols-2 gap-md">
+          <div class="p-md bg-surface rounded-xl border border-outline-variant/60">
+            <div class="w-10 h-10 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center mb-3">
+              <span class="material-symbols-outlined">fact_check</span>
+            </div>
+            <h3 class="font-bold text-primary text-base">Attendance System</h3>
+            <p class="text-xs text-on-surface-variant mt-1">Real-time session recording, student roll calls, and automated attendance % calculation.</p>
+          </div>
+          <div class="p-md bg-surface rounded-xl border border-outline-variant/60">
+            <div class="w-10 h-10 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center mb-3">
+              <span class="material-symbols-outlined">assignment</span>
+            </div>
+            <h3 class="font-bold text-primary text-base">Assignments & Submissions</h3>
+            <p class="text-xs text-on-surface-variant mt-1">Digital coursework creation, student text/file submissions, and instructor grading.</p>
+          </div>
+          <div class="p-md bg-surface rounded-xl border border-outline-variant/60">
+            <div class="w-10 h-10 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center mb-3">
+              <span class="material-symbols-outlined">grade</span>
+            </div>
+            <h3 class="font-bold text-primary text-base">Exams & GPA Engine</h3>
+            <p class="text-xs text-on-surface-variant mt-1">Midterm and final result entry with automated semester GPA computation.</p>
+          </div>
+          <div class="p-md bg-surface rounded-xl border border-outline-variant/60">
+            <div class="w-10 h-10 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center mb-3">
+              <span class="material-symbols-outlined">psychology</span>
+            </div>
+            <h3 class="font-bold text-primary text-base">AI Academic Insights</h3>
+            <p class="text-xs text-on-surface-variant mt-1">Personalized student recommendations, weak area detection, and class analytics.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-surface-container-lowest border-t border-outline-variant py-md text-center text-xs text-on-surface-variant">
+    <div class="max-w-container-max mx-auto px-md flex justify-between items-center">
+      <span>© 2026 Phazon Academic Intelligence System. All rights reserved.</span>
+      <div class="flex gap-md">
+        <a href="../auth/auth.html" class="hover:underline">Student Portal</a>
+        <a href="../auth/auth.html" class="hover:underline">Faculty Console</a>
+        <a href="../auth/auth.html" class="hover:underline">Admin Panel</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

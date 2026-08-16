@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Phazon Academic — Student Notifications</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/variables.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/components.css"/>
+  <link rel="stylesheet" href="../../css/layout.css"/>
+  <link rel="stylesheet" href="../../css/responsive.css"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#000000", "secondary": "#4648d4", "background": "#f8f9ff",
+            "surface": "#f8f9ff", "on-surface": "#0d1c2e", "on-surface-variant": "#45464d",
+            "outline-variant": "#c6c6cd", "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#dce9ff", "surface-container": "#e6eeff",
+            "primary-container": "#131b2e", "on-primary-container": "#bec6e0"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .nav-item { @apply flex items-center gap-3 text-on-surface-variant py-2.5 px-4 rounded-lg hover:bg-surface-container hover:text-primary transition-all duration-150 font-medium text-sm; }
+    .nav-item.active { @apply bg-secondary text-white; }
+    .nav-item .icon { @apply text-[20px]; }
+    .nav-section { @apply text-[10px] font-bold uppercase tracking-widest text-on-surface-variant px-4 pt-4 pb-1; }
+  </style>
+</head>
+<body class="bg-background text-on-surface h-full font-sans antialiased flex overflow-hidden">
+
+  <!-- SideNav -->
+  <nav class="hidden md:flex flex-col h-screen w-[260px] z-50 bg-surface border-r border-outline-variant flex-shrink-0">
+    <div class="px-5 pt-6 pb-4 flex items-center gap-3 border-b border-outline-variant">
+      <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-sm flex-shrink-0">
+        <span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings:'FILL' 1">school</span>
+      </div>
+      <div class="min-w-0">
+        <a href="../../index.html" class="font-bold text-primary text-base block truncate leading-tight">Phazon Academic</a>
+        <p class="text-xs text-secondary font-semibold">Student Portal</p>
+      </div>
+    </div>
+
+    <div class="px-4 py-3 border-b border-outline-variant">
+      <div class="flex items-center gap-2.5 bg-surface-container rounded-xl px-3 py-2">
+        <div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+          <span class="material-symbols-outlined text-[16px]">school</span>
+        </div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-primary truncate" id="nav-name">Student</p>
+          <p class="text-xs text-on-surface-variant truncate" id="nav-email">student@phazon.edu</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-3 py-2 space-y-0.5">
+      <p class="nav-section">Dashboard</p>
+      <a href="dashboard.html"                 class="nav-item"><span class="icon material-symbols-outlined">dashboard</span>Overview</a>
+      <p class="nav-section">My Academics</p>
+      <a href="../courses/courses.html"         class="nav-item"><span class="icon material-symbols-outlined">menu_book</span>My Courses</a>
+      <a href="attendance.html"                class="nav-item"><span class="icon material-symbols-outlined">fact_check</span>Attendance</a>
+      <a href="assignments.html"               class="nav-item"><span class="icon material-symbols-outlined">assignment</span>Assignments</a>
+      <a href="exams.html"                     class="nav-item"><span class="icon material-symbols-outlined">quiz</span>Exams</a>
+      <a href="../grades/grades.html"           class="nav-item"><span class="icon material-symbols-outlined">grade</span>Grades</a>
+      <a href="analytics.html"                 class="nav-item"><span class="icon material-symbols-outlined">analytics</span>Analytics</a>
+      <a href="ai.html"                        class="nav-item"><span class="icon material-symbols-outlined">auto_awesome</span>AI Assistant</a>
+      <a href="notifications.html"             class="nav-item active"><span class="icon material-symbols-outlined">notifications</span>Notifications</a>
+    </div>
+
+    <div class="px-3 py-4 border-t border-outline-variant space-y-1">
+      <button onclick="PzAuth.logout()" class="nav-item w-full text-left text-red-600 hover:bg-red-50 hover:text-red-700">
+        <span class="icon material-symbols-outlined">logout</span>Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col h-full overflow-y-auto">
+    <!-- Header -->
+    <div class="bg-surface border-b border-outline-variant px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+      <div>
+        <h1 class="text-xl font-bold text-primary">Academic Notifications</h1>
+        <p class="text-xs text-on-surface-variant mt-0.5">Real-time alerts for assignments, exams, grades, and announcements</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="markAllRead()" class="text-xs font-semibold text-secondary hover:underline flex items-center gap-1">
+          <span class="material-symbols-outlined text-[16px]">done_all</span> Mark all as read
+        </button>
+        <span class="relative inline-flex items-center justify-center bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full">
+          <span class="material-symbols-outlined text-[14px] mr-1">notifications</span>
+          <span id="unread-count-badge">0</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="p-6 space-y-6 max-w-4xl mx-auto w-full">
+
+      <!-- Announcements Section -->
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-sm">
+        <h2 class="font-bold text-primary text-base mb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[20px]">campaign</span> Faculty & Department Announcements
+        </h2>
+        <div id="announcements-list" class="space-y-3">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- Notifications Section -->
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-outline-variant pb-3">
+          <h2 class="font-bold text-primary text-base flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary text-[20px]">notifications_active</span> In-App Notifications
+          </h2>
+          <!-- Filter Tabs -->
+          <div class="flex flex-wrap gap-1 text-xs">
+            <button onclick="setFilter('ALL')" id="tab-ALL" class="px-3 py-1 rounded-lg font-semibold bg-secondary text-white">All</button>
+            <button onclick="setFilter('UNREAD')" id="tab-UNREAD" class="px-3 py-1 rounded-lg font-semibold bg-surface-container text-on-surface-variant hover:bg-surface-container-high">Unread</button>
+            <button onclick="setFilter('ASSIGNMENT')" id="tab-ASSIGNMENT" class="px-3 py-1 rounded-lg font-semibold bg-surface-container text-on-surface-variant hover:bg-surface-container-high">Assignments</button>
+            <button onclick="setFilter('EXAM')" id="tab-EXAM" class="px-3 py-1 rounded-lg font-semibold bg-surface-container text-on-surface-variant hover:bg-surface-container-high">Exams</button>
+            <button onclick="setFilter('RESULT')" id="tab-RESULT" class="px-3 py-1 rounded-lg font-semibold bg-surface-container text-on-surface-variant hover:bg-surface-container-high">Results</button>
+          </div>
+        </div>
+
+        <div id="notifications-list" class="space-y-3 divide-y divide-outline-variant/60">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../../js/state.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth-client.js"></script>
+  <script>
+    let currentFilter = 'ALL';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!PzAuth.requireAuthGuard('student')) return;
+      
+      const session = JSON.parse(localStorage.getItem('pz_auth_session') || 'null');
+      document.getElementById('nav-name').textContent = session.user.name;
+      document.getElementById('nav-email').textContent = session.user.email;
+
+      await loadUnreadCount();
+      await loadAnnouncements();
+      await loadNotifications();
+    });
+
+    async function loadUnreadCount() {
+      try {
+        const res = await PzAPI.authGet('/notifications/unread-count');
+        if (res.success) {
+          document.getElementById('unread-count-badge').textContent = res.unreadCount || 0;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function loadAnnouncements() {
+      const container = document.getElementById('announcements-list');
+      try {
+        const res = await PzAPI.authGet('/announcements');
+        if (res.success && res.data && res.data.length > 0) {
+          container.innerHTML = '';
+          res.data.forEach(a => {
+            const dateStr = new Date(a.created_at).toLocaleDateString();
+            container.innerHTML += `
+              <div class="bg-surface p-4 rounded-xl border border-outline-variant/70">
+                <div class="flex justify-between items-start mb-1">
+                  <h4 class="font-bold text-primary text-sm">${escapeHtml(a.title)}</h4>
+                  <span class="text-[10px] text-on-surface-variant">${dateStr}</span>
+                </div>
+                <p class="text-xs text-on-surface mt-1">${escapeHtml(a.message)}</p>
+                <div class="mt-2 text-[10px] font-semibold text-secondary">
+                  Posted by ${escapeHtml(a.sender?.name || 'Faculty')} (${a.target_audience})
+                </div>
+              </div>
+            `;
+          });
+        } else {
+          container.innerHTML = `<p class="text-xs text-on-surface-variant">No active announcements available.</p>`;
+        }
+      } catch (err) {
+        container.innerHTML = `<p class="text-xs text-red-600">Error loading announcements.</p>`;
+      }
+    }
+
+    async function loadNotifications() {
+      const container = document.getElementById('notifications-list');
+      try {
+        let url = '/notifications?limit=30';
+        if (currentFilter === 'UNREAD') url += '&unread_only=true';
+        else if (currentFilter === 'ASSIGNMENT') url += '&type=ASSIGNMENT_CREATED';
+        else if (currentFilter === 'EXAM') url += '&type=EXAM_SCHEDULED';
+        else if (currentFilter === 'RESULT') url += '&type=RESULT_PUBLISHED';
+
+        const res = await PzAPI.authGet(url);
+        if (res.success && res.data && res.data.length > 0) {
+          container.innerHTML = '';
+          res.data.forEach(n => {
+            const timeStr = new Date(n.created_at).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
+            const unreadClass = n.is_read ? 'opacity-75' : 'bg-secondary/5 font-medium border-l-4 border-l-secondary';
+            
+            container.innerHTML += `
+              <div class="pt-3 pb-3 px-3 rounded-lg flex items-start justify-between gap-3 ${unreadClass}">
+                <div class="space-y-1 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-surface-container text-secondary">${n.type.replace('_',' ')}</span>
+                    <span class="text-[10px] text-on-surface-variant">${timeStr}</span>
+                  </div>
+                  <h4 class="font-bold text-primary text-xs">${escapeHtml(n.title)}</h4>
+                  <p class="text-xs text-on-surface-variant">${escapeHtml(n.message)}</p>
+                </div>
+                ${!n.is_read ? `<button onclick="markRead('${n.id}')" class="text-[10px] font-bold text-secondary hover:underline whitespace-nowrap">Mark read</button>` : ''}
+              </div>
+            `;
+          });
+        } else {
+          container.innerHTML = `<div class="py-6 text-center text-xs text-on-surface-variant">You're all caught up. No notifications.</div>`;
+        }
+      } catch (err) {
+        container.innerHTML = `<div class="py-6 text-center text-xs text-red-600">Unable to load notifications.</div>`;
+      }
+    }
+
+    async function markRead(id) {
+      try {
+        await PzAPI.authPatch(`/notifications/${id}/read`, {});
+        await loadUnreadCount();
+        await loadNotifications();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function markAllRead() {
+      try {
+        await PzAPI.authPatch('/notifications/read-all', {});
+        await loadUnreadCount();
+        await loadNotifications();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('[id^="tab-"]').forEach(btn => {
+        btn.className = "px-3 py-1 rounded-lg font-semibold bg-surface-container text-on-surface-variant hover:bg-surface-container-high";
+      });
+      document.getElementById(`tab-${filter}`).className = "px-3 py-1 rounded-lg font-semibold bg-secondary text-white";
+      loadNotifications();
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>

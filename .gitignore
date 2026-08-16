@@ -1,0 +1,49 @@
+# ═══════════════════════════════════════════════════
+# Phazon — .gitignore
+# ═══════════════════════════════════════════════════
+
+# ── Environment / secrets ─────────────────────────
+.env
+.env.*
+*.env
+
+# ── AI API key config (local only — never commit) ─
+frontend/js/ai-config.js
+ai-config.js
+
+# ── Node / package managers ───────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+# ── Build output ──────────────────────────────────
+dist/
+build/
+.next/
+out/
+
+# ── OS files ──────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor ────────────────────────────────────────
+.vscode/settings.json
+.idea/
+*.suo
+*.user
+
+# ── Logs ──────────────────────────────────────────
+*.log
+logs/
+
+# ── Test artifacts & test scripts (Do NOT push to GitHub) ──
+coverage/
+.nyc_output/
+tests/
+backend/src/scripts/testPhase*.js
+frontend/screenshots/
+*.png

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Phazon Academic — Global Analytics</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/variables.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/components.css"/>
+  <link rel="stylesheet" href="../../css/layout.css"/>
+  <link rel="stylesheet" href="../../css/responsive.css"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#000000", "secondary": "#4648d4", "background": "#f8f9ff",
+            "surface": "#f8f9ff", "on-surface": "#0d1c2e", "on-surface-variant": "#45464d",
+            "outline-variant": "#c6c6cd", "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#dce9ff", "surface-container": "#e6eeff",
+            "primary-container": "#131b2e", "on-primary-container": "#bec6e0"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .nav-item { @apply flex items-center gap-3 text-on-surface-variant py-2.5 px-4 rounded-lg hover:bg-surface-container hover:text-primary transition-all duration-150 font-medium text-sm; }
+    .nav-item.active { @apply bg-secondary text-white; }
+    .nav-item .icon { @apply text-[20px]; }
+    .nav-section { @apply text-[10px] font-bold uppercase tracking-widest text-on-surface-variant px-4 pt-4 pb-1; }
+  </style>
+</head>
+<body class="bg-background text-on-surface h-full font-sans antialiased flex overflow-hidden">
+
+  <!-- SideNav -->
+  <nav class="hidden md:flex flex-col h-screen w-[260px] z-50 bg-surface border-r border-outline-variant flex-shrink-0">
+    <div class="px-5 pt-6 pb-4 flex items-center gap-3 border-b border-outline-variant">
+      <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-sm flex-shrink-0">
+        <span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings:'FILL' 1">admin_panel_settings</span>
+      </div>
+      <div class="min-w-0">
+        <a href="../../index.html" class="font-bold text-primary text-base block truncate leading-tight">Phazon Academic</a>
+        <p class="text-xs text-secondary font-semibold">Admin Portal</p>
+      </div>
+    </div>
+
+    <div class="px-4 py-3 border-b border-outline-variant">
+      <div class="flex items-center gap-2.5 bg-surface-container rounded-xl px-3 py-2">
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm flex-shrink-0">
+          <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>
+        </div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-primary truncate" id="nav-name">Admin</p>
+          <p class="text-xs text-on-surface-variant truncate" id="nav-email">admin@phazon.edu</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-3 py-2 space-y-0.5">
+      <p class="nav-section">System</p>
+      <a href="dashboard.html"                 class="nav-item"><span class="icon material-symbols-outlined">dashboard</span>Dashboard</a>
+      <a href="structure.html"                 class="nav-item"><span class="icon material-symbols-outlined">account_balance</span>Academic Structure</a>
+
+      <p class="nav-section">Academic</p>
+      <a href="../courses/courses.html"         class="nav-item"><span class="icon material-symbols-outlined">menu_book</span>Courses</a>
+      <a href="attendance.html"                 class="nav-item"><span class="icon material-symbols-outlined">fact_check</span>Attendance</a>
+      <a href="assignments.html"                class="nav-item"><span class="icon material-symbols-outlined">assignment</span>Assignments</a>
+      <a href="exams.html"                      class="nav-item"><span class="icon material-symbols-outlined">quiz</span>Exams</a>
+      <a href="../grades/grades.html"           class="nav-item"><span class="icon material-symbols-outlined">grade</span>Grades</a>
+      <a href="analytics.html"                  class="nav-item active"><span class="icon material-symbols-outlined">analytics</span>Analytics</a>
+    </div>
+
+    <div class="px-3 py-4 border-t border-outline-variant space-y-1">
+      <button onclick="PzAuth.logout()" class="nav-item w-full text-left text-red-600 hover:bg-red-50 hover:text-red-700">
+        <span class="icon material-symbols-outlined">logout</span>Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col h-full overflow-y-auto">
+    <div class="bg-surface border-b border-outline-variant px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+      <div>
+        <h1 class="text-xl font-bold text-primary">Global Academic Analytics</h1>
+        <p class="text-xs text-on-surface-variant mt-0.5">Institution-wide performance metrics and department comparisons</p>
+      </div>
+      <span class="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full">
+        <span class="material-symbols-outlined text-[13px]">admin_panel_settings</span>ADMIN
+      </span>
+    </div>
+
+    <div class="p-6 space-y-6">
+      <!-- Global KPIs -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm">
+          <span class="text-xs font-semibold text-on-surface-variant">Departments</span>
+          <div class="text-xl font-bold text-primary mt-1" id="kpi-depts">0</div>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm">
+          <span class="text-xs font-semibold text-on-surface-variant">Total Students</span>
+          <div class="text-xl font-bold text-primary mt-1" id="kpi-students">0</div>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm">
+          <span class="text-xs font-semibold text-on-surface-variant">Total Faculty</span>
+          <div class="text-xl font-bold text-primary mt-1" id="kpi-teachers">0</div>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm">
+          <span class="text-xs font-semibold text-on-surface-variant">Total Courses</span>
+          <div class="text-xl font-bold text-primary mt-1" id="kpi-courses">0</div>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm">
+          <span class="text-xs font-semibold text-on-surface-variant">Global Attendance</span>
+          <div class="text-xl font-bold text-primary mt-1" id="kpi-att">--</div>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm">
+          <span class="text-xs font-semibold text-on-surface-variant">Global Pass Rate</span>
+          <div class="text-xl font-bold text-primary mt-1" id="kpi-pass">--</div>
+        </div>
+      </div>
+
+      <!-- Department Comparison & Global Grade Distribution -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Department Comparison Table -->
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm lg:col-span-2 overflow-hidden">
+          <h3 class="font-bold text-primary text-base mb-1">Department Comparison</h3>
+          <p class="text-xs text-on-surface-variant mb-4">Comparative metrics across institution departments</p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-surface border-b border-outline-variant text-on-surface">
+                <tr>
+                  <th class="px-3 py-2 font-semibold">Department</th>
+                  <th class="px-3 py-2 font-semibold">Students</th>
+                  <th class="px-3 py-2 font-semibold">Avg Attendance</th>
+                  <th class="px-3 py-2 font-semibold">Pass Rate</th>
+                </tr>
+              </thead>
+              <tbody id="list-depts" class="divide-y divide-outline-variant">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Grade Distribution Chart -->
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm lg:col-span-1">
+          <h3 class="font-bold text-primary text-base mb-1">Institution Grade Distribution</h3>
+          <p class="text-xs text-on-surface-variant mb-4">Global grade counts</p>
+          <div id="grade-bars" class="space-y-2.5">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../../js/state.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth-client.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!PzAuth.requireAuthGuard('admin')) return;
+      
+      const session = JSON.parse(localStorage.getItem('pz_auth_session') || 'null');
+      document.getElementById('nav-name').textContent = session.user.name;
+      document.getElementById('nav-email').textContent = session.user.email;
+
+      await loadAnalytics();
+    });
+
+    async function loadAnalytics() {
+      try {
+        const res = await PzAPI.authGet('/analytics/admin');
+        if (res.success && res.data) {
+          renderDashboard(res.data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function renderDashboard(data) {
+      document.getElementById('kpi-depts').textContent = data.totalDepartments || 0;
+      document.getElementById('kpi-students').textContent = data.totalStudents || 0;
+      document.getElementById('kpi-teachers').textContent = data.totalTeachers || 0;
+      document.getElementById('kpi-courses').textContent = data.totalCourses || 0;
+      document.getElementById('kpi-att').textContent = data.overallAttendance !== null ? `${data.overallAttendance}%` : 'N/A';
+      document.getElementById('kpi-pass').textContent = data.passRate !== null ? `${data.passRate}%` : 'N/A';
+
+      // Department Comparison Table
+      const deptTbody = document.getElementById('list-depts');
+      deptTbody.innerHTML = '';
+      const depts = data.departmentComparison || [];
+      if (depts.length === 0) {
+        deptTbody.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-on-surface-variant">No department comparison data available.</td></tr>`;
+      } else {
+        depts.forEach(d => {
+          const attStr = d.averageAttendance !== null ? `${d.averageAttendance}%` : 'N/A';
+          const passStr = d.passRate !== null ? `${d.passRate}%` : 'N/A';
+          deptTbody.innerHTML += `
+            <tr class="hover:bg-surface-container-high transition-colors">
+              <td class="px-3 py-2.5 font-semibold text-primary">${d.name} <span class="text-[10px] text-on-surface-variant">(${d.code})</span></td>
+              <td class="px-3 py-2.5">${d.studentCount}</td>
+              <td class="px-3 py-2.5">${attStr}</td>
+              <td class="px-3 py-2.5 font-bold">${passStr}</td>
+            </tr>
+          `;
+        });
+      }
+
+      // Grade Distribution Bars
+      const gradeEl = document.getElementById('grade-bars');
+      gradeEl.innerHTML = '';
+      const dist = data.gradeDistribution || {};
+      const maxCount = Math.max(1, ...Object.values(dist));
+
+      Object.entries(dist).forEach(([g, count]) => {
+        const widthPct = Math.round((count / maxCount) * 100);
+        gradeEl.innerHTML += `
+          <div class="flex items-center gap-3 text-xs">
+            <span class="font-bold text-primary w-6">${g}</span>
+            <div class="flex-1 bg-surface-container rounded-full h-3 overflow-hidden">
+              <div class="bg-secondary h-full rounded-full transition-all duration-500" style="width: ${widthPct}%"></div>
+            </div>
+            <span class="font-semibold text-on-surface-variant w-8 text-right">${count}</span>
+          </div>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>

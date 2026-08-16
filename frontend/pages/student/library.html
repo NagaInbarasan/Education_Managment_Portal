@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Phazon Academic — Library Catalog & Loans</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/variables.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/components.css"/>
+  <link rel="stylesheet" href="../../css/layout.css"/>
+  <link rel="stylesheet" href="../../css/responsive.css"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#000000", "secondary": "#4648d4", "background": "#f8f9ff",
+            "surface": "#f8f9ff", "on-surface": "#0d1c2e", "on-surface-variant": "#45464d",
+            "outline-variant": "#c6c6cd", "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#dce9ff", "surface-container": "#e6eeff",
+            "primary-container": "#131b2e", "on-primary-container": "#bec6e0"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .nav-item { @apply flex items-center gap-3 text-on-surface-variant py-2.5 px-4 rounded-lg hover:bg-surface-container hover:text-primary transition-all duration-150 font-medium text-sm; }
+    .nav-item.active { @apply bg-secondary text-white; }
+    .nav-item .icon { @apply text-[20px]; }
+    .nav-section { @apply text-[10px] font-bold uppercase tracking-widest text-on-surface-variant px-4 pt-4 pb-1; }
+  </style>
+</head>
+<body class="bg-background text-on-surface h-full font-sans antialiased flex overflow-hidden">
+
+  <!-- SideNav -->
+  <nav class="hidden md:flex flex-col h-screen w-[260px] z-50 bg-surface border-r border-outline-variant flex-shrink-0">
+    <div class="px-5 pt-6 pb-4 flex items-center gap-3 border-b border-outline-variant">
+      <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-sm flex-shrink-0">
+        <span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings:'FILL' 1">school</span>
+      </div>
+      <div class="min-w-0">
+        <a href="../../index.html" class="font-bold text-primary text-base block truncate leading-tight">Phazon Academic</a>
+        <p class="text-xs text-secondary font-semibold">Student Portal</p>
+      </div>
+    </div>
+
+    <div class="px-4 py-3 border-b border-outline-variant">
+      <div class="flex items-center gap-2.5 bg-surface-container rounded-xl px-3 py-2">
+        <div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-white text-sm flex-shrink-0">
+          <span class="material-symbols-outlined text-[16px]">school</span>
+        </div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-primary truncate" id="nav-name">Student</p>
+          <p class="text-xs text-on-surface-variant truncate" id="nav-email">student@phazon.edu</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-3 py-2 space-y-0.5">
+      <p class="nav-section">Dashboard</p>
+      <a href="dashboard.html"                 class="nav-item"><span class="icon material-symbols-outlined">dashboard</span>Overview</a>
+      <p class="nav-section">Campus Services</p>
+      <a href="calendar.html"                  class="nav-item"><span class="icon material-symbols-outlined">event</span>Academic Calendar</a>
+      <a href="library.html"                   class="nav-item active"><span class="icon material-symbols-outlined">local_library</span>Library Catalog</a>
+      <a href="support.html"                   class="nav-item"><span class="icon material-symbols-outlined">support_agent</span>Academic Support</a>
+      <p class="nav-section">My Academics</p>
+      <a href="profile.html"                   class="nav-item"><span class="icon material-symbols-outlined">account_circle</span>My Profile</a>
+      <a href="../courses/courses.html"         class="nav-item"><span class="icon material-symbols-outlined">menu_book</span>My Courses</a>
+      <a href="timetable.html"                 class="nav-item"><span class="icon material-symbols-outlined">calendar_clock</span>Timetable</a>
+      <a href="resources.html"                 class="nav-item"><span class="icon material-symbols-outlined">folder</span>Resources</a>
+      <a href="attendance.html"                class="nav-item"><span class="icon material-symbols-outlined">fact_check</span>Attendance</a>
+      <a href="assignments.html"               class="nav-item"><span class="icon material-symbols-outlined">assignment</span>Assignments</a>
+      <a href="exams.html"                     class="nav-item"><span class="icon material-symbols-outlined">quiz</span>Exams</a>
+      <a href="../grades/grades.html"           class="nav-item"><span class="icon material-symbols-outlined">grade</span>Grades</a>
+      <a href="fees.html"                      class="nav-item"><span class="icon material-symbols-outlined">payments</span>Fees & Payments</a>
+      <a href="leave.html"                     class="nav-item"><span class="icon material-symbols-outlined">event_busy</span>Leave Requests</a>
+      <a href="feedback.html"                  class="nav-item"><span class="icon material-symbols-outlined">rate_review</span>Course Feedback</a>
+      <a href="analytics.html"                 class="nav-item"><span class="icon material-symbols-outlined">analytics</span>Analytics</a>
+      <a href="ai.html"                        class="nav-item"><span class="icon material-symbols-outlined">auto_awesome</span>AI Assistant</a>
+      <a href="notifications.html"             class="nav-item"><span class="icon material-symbols-outlined">notifications</span>Notifications</a>
+    </div>
+
+    <div class="px-3 py-4 border-t border-outline-variant space-y-1">
+      <button onclick="PzAuth.logout()" class="nav-item w-full text-left text-red-600 hover:bg-red-50 hover:text-red-700">
+        <span class="icon material-symbols-outlined">logout</span>Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col h-full overflow-y-auto">
+    <div class="bg-surface border-b border-outline-variant px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+      <div>
+        <h1 class="text-xl font-bold text-primary">Academic Library & Catalog</h1>
+        <p class="text-xs text-on-surface-variant mt-0.5">Search academic textbooks, check physical copy availability, and view borrowed loans</p>
+      </div>
+    </div>
+
+    <div class="p-6 space-y-6 max-w-6xl mx-auto w-full">
+
+      <!-- Search Bar -->
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-4 shadow-sm flex items-center gap-3">
+        <span class="material-symbols-outlined text-on-surface-variant">search</span>
+        <input id="search-input" type="text" placeholder="Search by book title, author, or ISBN..." onkeyup="onSearchKey(event)" class="w-full text-xs bg-transparent outline-none border-none"/>
+        <button onclick="loadBooks()" class="bg-secondary text-white font-semibold px-4 py-2 rounded-xl text-xs">Search</button>
+      </div>
+
+      <!-- Book Catalog Grid -->
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-sm space-y-4">
+        <h2 class="font-bold text-primary text-base flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[20px]">local_library</span> Library Textbooks Catalog
+        </h2>
+        <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- Active Loans Table -->
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-sm space-y-4">
+        <h2 class="font-bold text-primary text-base flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[20px]">book</span> My Borrowed Library Loans
+        </h2>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[700px]">
+            <thead>
+              <tr class="bg-surface border-b border-outline-variant text-[11px] font-bold text-on-surface-variant uppercase">
+                <th class="py-3 px-3">Status</th>
+                <th class="py-3 px-3">Accession Ref</th>
+                <th class="py-3 px-3">Book Title</th>
+                <th class="py-3 px-3">Author</th>
+                <th class="py-3 px-3">Issued Date</th>
+                <th class="py-3 px-3">Due Date</th>
+              </tr>
+            </thead>
+            <tbody id="loans-body" class="divide-y divide-outline-variant/60 text-xs">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../../js/state.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth-client.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!PzAuth.requireAuthGuard('student')) return;
+      
+      const session = JSON.parse(localStorage.getItem('pz_auth_session') || 'null');
+      document.getElementById('nav-name').textContent = session.user.name;
+      document.getElementById('nav-email').textContent = session.user.email;
+
+      await loadBooks();
+      await loadLoans();
+    });
+
+    function onSearchKey(event) {
+      if (event.key === 'Enter') loadBooks();
+    }
+
+    async function loadBooks() {
+      const container = document.getElementById('books-grid');
+      const q = document.getElementById('search-input').value.trim();
+      try {
+        const res = await PzAPI.authGet(`/campus/library/books${q ? '?query=' + encodeURIComponent(q) : ''}`);
+        if (res.success && res.data && res.data.length > 0) {
+          container.innerHTML = '';
+          res.data.forEach(b => {
+            const availBadge = b.is_available ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+            container.innerHTML += `
+              <div class="bg-surface p-4 rounded-xl border border-outline-variant/70 flex flex-col justify-between space-y-3">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <h4 class="font-bold text-primary text-sm">${escapeHtml(b.title)}</h4>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded ${availBadge}">${b.is_available ? 'AVAILABLE' : 'BORROWED'}</span>
+                  </div>
+                  <p class="text-xs text-on-surface-variant mt-1">Author: ${escapeHtml(b.author)}</p>
+                  <p class="text-[11px] text-on-surface-variant mt-0.5">Category: ${b.category || 'GENERAL'} | ISBN: ${b.isbn || 'N/A'}</p>
+                </div>
+                <div class="flex items-center justify-between border-t border-outline-variant/60 pt-2 text-xs">
+                  <span class="text-on-surface font-semibold">Available Copies: ${b.available_copies} / ${b.total_copies}</span>
+                </div>
+              </div>
+            `;
+          });
+        } else {
+          container.innerHTML = `<div class="col-span-full py-6 text-center text-xs text-on-surface-variant">No matching books found.</div>`;
+        }
+      } catch (err) {
+        container.innerHTML = `<div class="col-span-full py-6 text-center text-xs text-red-600">Error loading catalog.</div>`;
+      }
+    }
+
+    async function loadLoans() {
+      const container = document.getElementById('loans-body');
+      try {
+        const res = await PzAPI.authGet('/campus/library/loans');
+        if (res.success && res.data && res.data.length > 0) {
+          container.innerHTML = '';
+          res.data.forEach(l => {
+            const badgeClass = l.status === 'RETURNED' ? 'bg-green-100 text-green-700' :
+                               l.status === 'OVERDUE' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700';
+
+            container.innerHTML += `
+              <tr class="hover:bg-surface/50">
+                <td class="py-3 px-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded ${badgeClass}">${l.status}</span></td>
+                <td class="py-3 px-3 font-bold text-primary">${escapeHtml(l.copy?.accession_number || 'N/A')}</td>
+                <td class="py-3 px-3 font-bold text-primary">${escapeHtml(l.copy?.book?.title || 'Book')}</td>
+                <td class="py-3 px-3 text-on-surface-variant">${escapeHtml(l.copy?.book?.author || 'Author')}</td>
+                <td class="py-3 px-3 text-on-surface-variant">${new Date(l.issued_at).toLocaleDateString()}</td>
+                <td class="py-3 px-3 font-semibold text-secondary">${new Date(l.due_at).toLocaleDateString()}</td>
+              </tr>
+            `;
+          });
+        } else {
+          container.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-xs text-on-surface-variant">No active or historical library loans recorded.</td></tr>`;
+        }
+      } catch (err) {
+        container.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-xs text-red-600">Error loading loans.</td></tr>`;
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>

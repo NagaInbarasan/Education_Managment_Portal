@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Phazon Academic — Department Exams</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/variables.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/components.css"/>
+  <link rel="stylesheet" href="../../css/layout.css"/>
+  <link rel="stylesheet" href="../../css/responsive.css"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#000000", "secondary": "#4648d4", "background": "#f8f9ff",
+            "surface": "#f8f9ff", "on-surface": "#0d1c2e", "on-surface-variant": "#45464d",
+            "outline-variant": "#c6c6cd", "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#dce9ff", "surface-container": "#e6eeff",
+            "primary-container": "#131b2e", "on-primary-container": "#bec6e0"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .nav-item { @apply flex items-center gap-3 text-on-surface-variant py-2.5 px-4 rounded-lg hover:bg-surface-container hover:text-primary transition-all duration-150 font-medium text-sm; }
+    .nav-item.active { @apply bg-secondary text-white; }
+    .nav-item .icon { @apply text-[20px]; }
+    .nav-section { @apply text-[10px] font-bold uppercase tracking-widest text-on-surface-variant px-4 pt-4 pb-1; }
+  </style>
+</head>
+<body class="bg-background text-on-surface h-full font-sans antialiased flex overflow-hidden">
+
+  <!-- SideNav -->
+  <nav class="hidden md:flex flex-col h-screen w-[260px] z-50 bg-surface border-r border-outline-variant flex-shrink-0">
+    <div class="px-5 pt-6 pb-4 flex items-center gap-3 border-b border-outline-variant">
+      <div class="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center shadow-sm flex-shrink-0">
+        <span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings:'FILL' 1">supervisor_account</span>
+      </div>
+      <div class="min-w-0">
+        <a href="../../index.html" class="font-bold text-primary text-base block truncate leading-tight">Phazon Academic</a>
+        <p class="text-xs text-secondary font-semibold">HOD Portal</p>
+      </div>
+    </div>
+
+    <div class="px-4 py-3 border-b border-outline-variant">
+      <div class="flex items-center gap-2.5 bg-surface-container rounded-xl px-3 py-2">
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm flex-shrink-0">
+          <span class="material-symbols-outlined text-[16px]">supervisor_account</span>
+        </div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-primary truncate" id="nav-name">HOD</p>
+          <p class="text-xs text-on-surface-variant truncate" id="nav-email">hod@phazon.edu</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-3 py-2 space-y-0.5">
+      <p class="nav-section">Overview</p>
+      <a href="dashboard.html"                 class="nav-item"><span class="icon material-symbols-outlined">dashboard</span>Dashboard</a>
+      <p class="nav-section">Academic</p>
+      <a href="attendance.html"                class="nav-item"><span class="icon material-symbols-outlined">fact_check</span>Attendance</a>
+      <a href="assignments.html"               class="nav-item"><span class="icon material-symbols-outlined">assignment</span>Assignments</a>
+      <a href="exams.html"                     class="nav-item active"><span class="icon material-symbols-outlined">quiz</span>Exams</a>
+    </div>
+
+    <div class="px-3 py-4 border-t border-outline-variant space-y-1">
+      <button onclick="PzAuth.logout()" class="nav-item w-full text-left text-red-600 hover:bg-red-50 hover:text-red-700">
+        <span class="icon material-symbols-outlined">logout</span>Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col h-full overflow-y-auto">
+    <div class="bg-surface border-b border-outline-variant px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+      <div>
+        <h1 class="text-xl font-bold text-primary">Department Exams</h1>
+        <p class="text-xs text-on-surface-variant mt-0.5">Monitor coursework evaluations across classes</p>
+      </div>
+      <span class="inline-flex items-center gap-1.5 bg-secondary/10 text-secondary text-xs font-bold px-3 py-1 rounded-full">
+        <span class="material-symbols-outlined text-[13px]">supervisor_account</span>HOD
+      </span>
+    </div>
+
+    <div class="p-6">
+      <!-- Filters -->
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-5 mb-6 shadow-sm">
+        <div class="flex flex-col md:flex-row gap-4 items-end">
+          <div class="flex-1">
+            <label class="block text-xs font-semibold text-on-surface mb-1.5">Class Filter</label>
+            <select id="sel-class" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-sm bg-surface outline-none focus:border-secondary">
+              <option value="">All Classes in Department</option>
+            </select>
+          </div>
+          <div>
+            <button onclick="loadExams()" id="btn-load" class="bg-primary text-white font-semibold py-2 px-6 rounded-lg hover:opacity-90 transition-opacity text-sm whitespace-nowrap shadow-md">
+              Apply Filter
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exams Table -->
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-surface border-b border-outline-variant">
+            <tr>
+              <th class="px-4 py-3 font-semibold text-on-surface w-[25%]">Exam Title</th>
+              <th class="px-4 py-3 font-semibold text-on-surface w-[20%]">Subject</th>
+              <th class="px-4 py-3 font-semibold text-on-surface w-[20%]">Class</th>
+              <th class="px-4 py-3 font-semibold text-on-surface w-[15%]">Type</th>
+              <th class="px-4 py-3 font-semibold text-on-surface w-[10%]">Time</th>
+              <th class="px-4 py-3 font-semibold text-on-surface w-[10%] text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody id="list-exams" class="divide-y divide-outline-variant">
+            <!-- Rendered via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="../../js/state.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth-client.js"></script>
+  <script>
+    let classesMap = {};
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!PzAuth.requireAuthGuard('hod')) return;
+      
+      const session = JSON.parse(localStorage.getItem('pz_auth_session') || 'null');
+      document.getElementById('nav-name').textContent = session.user.name;
+      document.getElementById('nav-email').textContent = session.user.email;
+
+      await loadFilters();
+      await loadExams();
+    });
+
+    async function loadFilters() {
+      try {
+        const res = await PzAPI.authGet('/classes');
+        if (res.success && res.data) {
+          const classSel = document.getElementById('sel-class');
+          res.data.forEach(c => {
+            classesMap[c.id] = c.name;
+            const opt = document.createElement('option');
+            opt.value = c.id; opt.textContent = c.name;
+            classSel.appendChild(opt);
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function loadExams() {
+      const classId = document.getElementById('sel-class').value;
+      const btn = document.getElementById('btn-load');
+      btn.disabled = true; btn.textContent = 'Loading...';
+
+      try {
+        const url = classId ? `/exams?class_id=${classId}` : '/exams';
+        const res = await PzAPI.authGet(url);
+        
+        if (res.success) {
+          renderTable(res.data || []);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        btn.disabled = false; btn.textContent = 'Apply Filter';
+      }
+    }
+
+    function renderTable(data) {
+      const tbody = document.getElementById('list-exams');
+      tbody.innerHTML = '';
+      if (data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="px-4 py-4 text-center text-on-surface-variant">No exams found.</td></tr>`;
+        return;
+      }
+
+      data.forEach(ex => {
+        const timeStr = ex.start_at ? new Date(ex.start_at).toLocaleDateString() : 'TBD';
+        
+        let statusClass = 'bg-gray-100 text-gray-800';
+        if (ex.status === 'LIVE') statusClass = 'bg-green-100 text-green-800';
+        if (ex.status === 'COMPLETED') statusClass = 'bg-red-100 text-red-800';
+
+        tbody.innerHTML += `
+          <tr class="hover:bg-surface-container-high transition-colors">
+            <td class="px-4 py-3">
+              <p class="font-semibold text-primary text-sm">${ex.title}</p>
+            </td>
+            <td class="px-4 py-3 text-sm text-on-surface-variant">${ex.subject?.name || ''}</td>
+            <td class="px-4 py-3 text-sm text-on-surface-variant">${classesMap[ex.class_id] || ''}</td>
+            <td class="px-4 py-3 text-sm font-medium">${ex.exam_type}</td>
+            <td class="px-4 py-3 text-sm">${timeStr}</td>
+            <td class="px-4 py-3 text-center">
+              <span class="${statusClass} text-[10px] font-bold px-2 py-0.5 rounded uppercase">${ex.status}</span>
+            </td>
+          </tr>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>

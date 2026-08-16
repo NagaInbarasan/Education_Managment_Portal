@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Phazon Academic — Sign In</title>
+  <meta name="description" content="Sign in to your Phazon Academic Management Portal account."/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/variables.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/components.css"/>
+  <link rel="stylesheet" href="../../css/layout.css"/>
+  <link rel="stylesheet" href="../../css/responsive.css"/>
+  <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary": "#000000",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-primary-fixed": "#131b2e",
+                      "on-error": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-high": "#dce9ff",
+                      "surface-container-low": "#eff4ff",
+                      "error": "#ba1a1a",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c6c6cd",
+                      "tertiary-fixed": "#d8e2ff",
+                      "surface-tint": "#565e74",
+                      "background": "#f8f9ff",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "secondary-fixed-dim": "#c0c1ff",
+                      "on-tertiary-fixed": "#001a42",
+                      "on-surface": "#0d1c2e",
+                      "surface-variant": "#d5e3fc",
+                      "primary-fixed": "#dae2fd",
+                      "secondary": "#4648d4",
+                      "surface-dim": "#ccdbf3",
+                      "on-primary-container": "#7c839b",
+                      "surface-container": "#e6eeff",
+                      "primary": "#000000",
+                      "inverse-surface": "#233144",
+                      "tertiary-fixed-dim": "#adc6ff",
+                      "surface-bright": "#f8f9ff",
+                      "on-secondary-fixed-variant": "#2f2ebe",
+                      "on-tertiary-container": "#3980f4",
+                      "outline": "#76777d",
+                      "error-container": "#ffdad6",
+                      "on-secondary-container": "#fffbff",
+                      "on-background": "#0d1c2e",
+                      "primary-container": "#131b2e",
+                      "tertiary-container": "#001a42",
+                      "on-tertiary-fixed-variant": "#004395",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-tertiary": "#ffffff",
+                      "surface": "#f8f9ff",
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#45464d",
+                      "inverse-primary": "#bec6e0",
+                      "on-secondary-fixed": "#07006c",
+                      "secondary-container": "#6063ee",
+                      "secondary-fixed": "#e1e0ff",
+                      "surface-container-highest": "#d5e3fc"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "40px",
+                      "xs": "4px",
+                      "margin-mobile": "16px",
+                      "md": "24px",
+                      "gutter": "24px",
+                      "base": "8px",
+                      "sm": "12px",
+                      "xl": "64px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Outfit"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-lg-mobile": ["Outfit"],
+                      "display-lg-mobile": ["Outfit"],
+                      "display-lg": ["Outfit"],
+                      "body-sm": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg": ["Outfit"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+  </script>
+  <style>
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 11px 24px;
+      background: #ffffff;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 0.5rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a2e;
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s, border-color 0.18s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      letter-spacing: 0.01em;
+    }
+    .google-btn:hover:not(:disabled) {
+      background: #f7f8ff;
+      border-color: #4648d4;
+      box-shadow: 0 2px 8px rgba(70,72,212,0.12);
+    }
+    .google-btn:active:not(:disabled) {
+      background: #eef0ff;
+    }
+    .google-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+    .google-btn svg { flex-shrink: 0; }
+
+    .pz-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #76777d;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .pz-divider::before, .pz-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #c6c6cd;
+    }
+
+    @keyframes pz-spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .pz-loading-icon {
+      animation: pz-spin 0.8s linear infinite;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex items-center justify-center p-margin-mobile md:p-lg">
+
+  <div class="w-full max-w-[480px] bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 p-lg">
+
+    <!-- Header -->
+    <div class="text-center mb-lg">
+      <a href="../../index.html" class="inline-block mb-sm">
+        <h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary">Phazon</h1>
+      </a>
+      <p id="auth-form-subtitle" class="font-body-md text-body-md text-on-surface-variant">Sign in to your Academic Management Portal.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex border-b border-outline-variant mb-lg">
+      <button id="tab-register" class="flex-1 py-sm font-label-md text-label-md text-primary border-b-2 border-secondary transition-colors">Register</button>
+      <button id="tab-login"    class="flex-1 py-sm font-label-md text-label-md text-on-surface-variant transition-colors">Login</button>
+    </div>
+
+    <!-- ═══ Google OAuth Button ════════════════════════════════ -->
+    <div class="mb-md">
+      <button id="pz-google-btn" class="google-btn" type="button" aria-label="Continue with Google">
+        <!-- Google Logo SVG -->
+        <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.64 9.205c0-.639-.057-1.252-.164-1.841H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+          <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/>
+          <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+          <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+        </svg>
+        <span id="pz-google-btn-text">Continue with Google</span>
+      </button>
+    </div>
+
+    <!-- Divider -->
+    <div class="pz-divider mb-md">
+      <span>or continue with email</span>
+    </div>
+
+    <!-- ═══ Email / Password Form ══════════════════════════════ -->
+    <form id="pz-auth-form" class="space-y-md" novalidate>
+
+      <!-- Register-only fields -->
+      <div id="register-fields" class="space-y-md">
+        <!-- Name -->
+        <div class="space-y-xs">
+          <label class="block font-label-md text-label-md text-on-surface" for="name">Full Name</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none">
+              <span class="material-symbols-outlined text-outline">person</span>
+            </div>
+            <input class="block w-full pl-[40px] pr-sm py-sm border border-outline-variant rounded-lg bg-surface focus:ring-secondary focus:border-secondary font-body-md text-body-md text-on-surface placeholder-outline"
+                   id="name" name="name" placeholder="Jane Doe" type="text" autocomplete="name"/>
+          </div>
+        </div>
+
+        <!-- Academic Role (Registration only) -->
+        <div class="space-y-xs">
+          <label class="block font-label-md text-label-md text-on-surface" for="role">Account Type</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none">
+              <span class="material-symbols-outlined text-outline">badge</span>
+            </div>
+            <select id="role" name="role" class="block w-full pl-[40px] pr-sm py-sm border border-outline-variant rounded-lg bg-surface focus:ring-secondary focus:border-secondary font-body-md text-body-md text-on-surface">
+              <option value="student">Student</option>
+              <option value="teacher">Teacher / Faculty</option>
+            </select>
+          </div>
+          <p class="font-label-sm text-label-sm text-on-surface-variant mt-xs">
+            <span class="material-symbols-outlined text-[13px] align-middle">info</span>
+            HOD and Admin accounts are provisioned by the system administrator.
+          </p>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="space-y-xs">
+        <label class="block font-label-md text-label-md text-on-surface" for="email">Email Address</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none">
+            <span class="material-symbols-outlined text-outline">mail</span>
+          </div>
+          <input class="block w-full pl-[40px] pr-sm py-sm border border-outline-variant rounded-lg bg-surface focus:ring-secondary focus:border-secondary font-body-md text-body-md text-on-surface placeholder-outline"
+                 id="email" name="email" placeholder="jane@example.com" required type="email" autocomplete="email"/>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="space-y-xs">
+        <label class="block font-label-md text-label-md text-on-surface" for="password">Password</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none">
+            <span class="material-symbols-outlined text-outline">lock</span>
+          </div>
+          <input class="block w-full pl-[40px] pr-[44px] py-sm border border-outline-variant rounded-lg bg-surface focus:ring-secondary focus:border-secondary font-body-md text-body-md text-on-surface placeholder-outline"
+                 id="password" name="password" placeholder="••••••••" required type="password" autocomplete="current-password"/>
+          <!-- Show/hide toggle -->
+          <button type="button" id="toggle-password"
+                  class="absolute inset-y-0 right-0 pr-sm flex items-center text-outline hover:text-on-surface transition-colors"
+                  aria-label="Toggle password visibility">
+            <span class="material-symbols-outlined text-[20px]" id="toggle-password-icon">visibility</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Confirm Password (register only) -->
+      <div id="confirm-password-field" class="space-y-xs">
+        <label class="block font-label-md text-label-md text-on-surface" for="confirm_password">Confirm Password</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none">
+            <span class="material-symbols-outlined text-outline">lock_reset</span>
+          </div>
+          <input class="block w-full pl-[40px] pr-sm py-sm border border-outline-variant rounded-lg bg-surface focus:ring-secondary focus:border-secondary font-body-md text-body-md text-on-surface placeholder-outline"
+                 id="confirm_password" name="confirm_password" placeholder="••••••••" type="password" autocomplete="new-password"/>
+        </div>
+      </div>
+
+      <!-- Error/Info Alert -->
+      <div id="auth-error-box" class="hidden p-sm bg-error-container text-on-error-container rounded-lg font-body-sm text-body-sm flex items-center gap-sm">
+        <span class="material-symbols-outlined text-[18px]">error</span>
+        <span id="auth-error-msg">Error message</span>
+      </div>
+
+      <!-- Submit -->
+      <div class="pt-sm">
+        <button id="auth-submit-btn"
+                class="w-full flex justify-center items-center gap-sm py-sm px-md border border-transparent rounded-lg shadow-sm font-label-md text-label-md text-on-primary bg-primary hover:opacity-90 focus:outline-none transition-all"
+                type="submit">
+          Create Account
+        </button>
+      </div>
+    </form>
+
+    <!-- Footer -->
+    <div class="mt-lg text-center">
+      <p class="font-body-sm text-body-sm text-on-surface-variant">
+        <span id="auth-toggle-text">Already have an account?</span>
+        <a id="auth-toggle-link" class="font-label-md text-label-md text-secondary hover:text-secondary-container transition-colors ml-1 cursor-pointer">Login</a>
+      </p>
+    </div>
+
+    <!-- Terms note -->
+    <p class="text-center font-body-sm text-[11px] text-on-surface-variant mt-sm opacity-70">
+      By continuing, you agree to Phazon's Terms of Service and Privacy Policy.
+    </p>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/state.js"></script>
+  <script src="../../js/data.js"></script>
+  <script src="../../js/ui.js"></script>
+  <script src="../../js/auth-client.js"></script>
+  <script src="../../js/auth.js"></script>
+
+  <!-- Password visibility toggle -->
+  <script>
+    document.getElementById('toggle-password')?.addEventListener('click', function() {
+      const inp = document.getElementById('password');
+      const icon = document.getElementById('toggle-password-icon');
+      if (!inp) return;
+      const isHidden = inp.type === 'password';
+      inp.type = isHidden ? 'text' : 'password';
+      if (icon) icon.textContent = isHidden ? 'visibility_off' : 'visibility';
+    });
+  </script>
+</body>
+</html>

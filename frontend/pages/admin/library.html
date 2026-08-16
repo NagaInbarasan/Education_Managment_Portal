@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Phazon Academic — Library Inventory & Issue Manager</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/variables.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/components.css"/>
+  <link rel="stylesheet" href="../../css/layout.css"/>
+  <link rel="stylesheet" href="../../css/responsive.css"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#000000", "secondary": "#4648d4", "background": "#f8f9ff",
+            "surface": "#f8f9ff", "on-surface": "#0d1c2e", "on-surface-variant": "#45464d",
+            "outline-variant": "#c6c6cd", "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#dce9ff", "surface-container": "#e6eeff",
+            "primary-container": "#131b2e", "on-primary-container": "#bec6e0"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .nav-item { @apply flex items-center gap-3 text-on-surface-variant py-2.5 px-4 rounded-lg hover:bg-surface-container hover:text-primary transition-all duration-150 font-medium text-sm; }
+    .nav-item.active { @apply bg-secondary text-white; }
+    .nav-item .icon { @apply text-[20px]; }
+    .nav-section { @apply text-[10px] font-bold uppercase tracking-widest text-on-surface-variant px-4 pt-4 pb-1; }
+  </style>
+</head>
+<body class="bg-background text-on-surface h-full font-sans antialiased flex overflow-hidden">
+
+  <!-- SideNav -->
+  <nav class="hidden md:flex flex-col h-screen w-[260px] z-50 bg-surface border-r border-outline-variant flex-shrink-0">
+    <div class="px-5 pt-6 pb-4 flex items-center gap-3 border-b border-outline-variant">
+      <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-sm flex-shrink-0">
+        <span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings:'FILL' 1">admin_panel_settings</span>
+      </div>
+      <div class="min-w-0">
+        <a href="../../index.html" class="font-bold text-primary text-base block truncate leading-tight">Phazon Academic</a>
+        <p class="text-xs text-secondary font-semibold">Admin Portal</p>
+      </div>
+    </div>
+
+    <div class="px-4 py-3 border-b border-outline-variant">
+      <div class="flex items-center gap-2.5 bg-surface-container rounded-xl px-3 py-2">
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm flex-shrink-0">
+          <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>
+        </div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-primary truncate" id="nav-name">Admin</p>
+          <p class="text-xs text-on-surface-variant truncate" id="nav-email">admin@phazon.edu</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-3 py-2 space-y-0.5">
+      <p class="nav-section">System</p>
+      <a href="dashboard.html"                 class="nav-item"><span class="icon material-symbols-outlined">dashboard</span>Overview</a>
+      <a href="structure.html"                 class="nav-item"><span class="icon material-symbols-outlined">account_balance</span>Academic Structure</a>
+
+      <p class="nav-section">Campus Services</p>
+      <a href="calendar.html"                  class="nav-item"><span class="icon material-symbols-outlined">event</span>Academic Calendar</a>
+      <a href="library.html"                   class="nav-item active"><span class="icon material-symbols-outlined">local_library</span>Library Inventory</a>
+      <a href="support.html"                   class="nav-item"><span class="icon material-symbols-outlined">support_agent</span>Support Requests</a>
+
+      <p class="nav-section">Academic</p>
+      <a href="../courses/courses.html"         class="nav-item"><span class="icon material-symbols-outlined">menu_book</span>Courses</a>
+      <a href="timetable.html"                 class="nav-item"><span class="icon material-symbols-outlined">calendar_clock</span>Timetable & Rooms</a>
+      <a href="resources.html"                 class="nav-item"><span class="icon material-symbols-outlined">folder</span>Resources</a>
+      <a href="attendance.html"                 class="nav-item"><span class="icon material-symbols-outlined">fact_check</span>Attendance</a>
+      <a href="assignments.html"                class="nav-item"><span class="icon material-symbols-outlined">assignment</span>Assignments</a>
+      <a href="exams.html"                      class="nav-item"><span class="icon material-symbols-outlined">quiz</span>Exams</a>
+      <a href="../grades/grades.html"           class="nav-item"><span class="icon material-symbols-outlined">grade</span>Grades</a>
+      <a href="fees.html"                      class="nav-item"><span class="icon material-symbols-outlined">payments</span>Fees & Finance</a>
+      <a href="feedback.html"                  class="nav-item"><span class="icon material-symbols-outlined">rate_review</span>Feedback Analytics</a>
+      <a href="analytics.html"                  class="nav-item"><span class="icon material-symbols-outlined">analytics</span>Analytics</a>
+      <a href="ai.html"                         class="nav-item"><span class="icon material-symbols-outlined">auto_awesome</span>AI Assistant</a>
+      <a href="notifications.html"             class="nav-item"><span class="icon material-symbols-outlined">notifications</span>Notifications</a>
+    </div>
+
+    <div class="px-3 py-4 border-t border-outline-variant space-y-1">
+      <button onclick="PzAuth.logout()" class="nav-item w-full text-left text-red-600 hover:bg-red-50 hover:text-red-700">
+        <span class="icon material-symbols-outlined">logout</span>Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col h-full overflow-y-auto">
+    <div class="bg-surface border-b border-outline-variant px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+      <div>
+        <h1 class="text-xl font-bold text-primary">Library Catalog & Book Issue Manager</h1>
+        <p class="text-xs text-on-surface-variant mt-0.5">Manage library catalog inventory, physical copies, and student lending operations</p>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="openBookModal()" class="bg-surface-container border border-outline-variant text-primary font-semibold py-2 px-3 rounded-xl text-xs flex items-center gap-1">
+          <span class="material-symbols-outlined text-[16px]">menu_book</span> Add New Book
+        </button>
+        <button onclick="openIssueModal()" class="bg-secondary text-white font-semibold py-2 px-4 rounded-xl text-xs flex items-center gap-1.5 shadow-md">
+          <span class="material-symbols-outlined text-[16px]">output</span> Issue Book Copy
+        </button>
+      </div>
+    </div>
+
+    <div class="p-6 space-y-6 max-w-6xl mx-auto w-full">
+
+      <!-- Add Book Modal -->
+      <div id="book-modal" class="hidden bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-lg space-y-4">
+        <div class="flex justify-between items-center border-b border-outline-variant pb-3">
+          <h3 class="font-bold text-primary text-base flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary text-[20px]">add_box</span> Add Library Textbook
+          </h3>
+          <button onclick="closeBookModal()" class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+        </div>
+
+        <form onsubmit="addBook(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Book Title</label>
+              <input id="b-title" type="text" required placeholder="e.g. Operating System Concepts" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Author</label>
+              <input id="b-author" type="text" required placeholder="Author Name" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary"/>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">ISBN</label>
+              <input id="b-isbn" type="text" placeholder="978-XXXXXXXXXX" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Publisher</label>
+              <input id="b-publisher" type="text" placeholder="Publisher Name" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Category</label>
+              <select id="b-cat" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary">
+                <option value="COMPUTER_SCIENCE">Computer Science</option>
+                <option value="DATA_SCIENCE">Data Science</option>
+                <option value="MATHEMATICS">Mathematics</option>
+                <option value="ENGINEERING">Engineering</option>
+                <option value="GENERAL">General</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-on-surface mb-1">Accession Numbers (Comma-separated for initial copies)</label>
+            <input id="b-accessions" type="text" placeholder="ACC-OS-101, ACC-OS-102" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary"/>
+          </div>
+
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeBookModal()" class="px-4 py-2 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container">Cancel</button>
+            <button type="submit" class="bg-secondary text-white font-semibold px-5 py-2 rounded-lg text-xs shadow-md">Add Book & Copies</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Issue Book Modal -->
+      <div id="issue-modal" class="hidden bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-lg space-y-4">
+        <div class="flex justify-between items-center border-b border-outline-variant pb-3">
+          <h3 class="font-bold text-primary text-base flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary text-[20px]">output</span> Issue Book Copy to Student
+          </h3>
+          <button onclick="closeIssueModal()" class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+        </div>
+
+        <form onsubmit="issueCopy(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Copy Accession Number / Copy ID</label>
+              <input id="i-copy" type="text" required placeholder="Copy UUID or Accession ID" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-on-surface mb-1">Student User ID</label>
+              <input id="i-student" type="text" required placeholder="Student UUID" class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary"/>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-on-surface mb-1">Lending Duration (Days)</label>
+            <input id="i-days" type="number" value="14" required class="w-full border border-outline-variant rounded-lg px-3 py-2 text-xs bg-surface outline-none focus:border-secondary"/>
+          </div>
+
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeIssueModal()" class="px-4 py-2 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container">Cancel</button>
+            <button type="submit" class="bg-secondary text-white font-semibold px-5 py-2 rounded-lg text-xs shadow-md">Confirm Book Issue</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Active Loans List -->
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 shadow-sm space-y-4">
+        <h2 class="font-bold text-primary text-base flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[20px]">menu_book</span> Institution Active & Overdue Book Loans
+        </h2>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[700px]">
+            <thead>
+              <tr class="bg-surface border-b border-outline-variant text-[11px] font-bold text-on-surface-variant uppercase">
+                <th class="py-3 px-3">Status</th>
+                <th class="py-3 px-3">Loan ID</th>
+                <th class="py-3 px-3">Book Title</th>
+                <th class="py-3 px-3">Accession Ref</th>
+                <th class="py-3 px-3">Issued Date</th>
+                <th class="py-3 px-3">Due Date</th>
+                <th class="py-3 px-3">Action</th>
+              </tr>
+            </thead>
+            <tbody id="loans-body" class="divide-y divide-outline-variant/60 text-xs">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../../js/state.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth-client.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!PzAuth.requireAuthGuard('admin')) return;
+      
+      const session = JSON.parse(localStorage.getItem('pz_auth_session') || 'null');
+      document.getElementById('nav-name').textContent = session.user.name;
+      document.getElementById('nav-email').textContent = session.user.email;
+
+      await loadLoans();
+    });
+
+    async function loadLoans() {
+      const container = document.getElementById('loans-body');
+      try {
+        const res = await PzAPI.authGet('/campus/library/loans');
+        if (res.success && res.data && res.data.length > 0) {
+          container.innerHTML = '';
+          res.data.forEach(l => {
+            const badgeClass = l.status === 'RETURNED' ? 'bg-green-100 text-green-700' :
+                               l.status === 'OVERDUE' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700';
+
+            const returnBtn = l.status !== 'RETURNED' ?
+              `<button onclick="returnCopy('${l.id}')" class="bg-secondary text-white font-bold px-3 py-1 rounded-lg text-[10px]">Record Return</button>` :
+              `<span class="text-on-surface-variant">Returned</span>`;
+
+            container.innerHTML += `
+              <tr class="hover:bg-surface/50">
+                <td class="py-3 px-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded ${badgeClass}">${l.status}</span></td>
+                <td class="py-3 px-3 font-mono text-on-surface-variant">${l.id.slice(0, 8)}</td>
+                <td class="py-3 px-3 font-bold text-primary">${escapeHtml(l.copy?.book?.title || 'Book')}</td>
+                <td class="py-3 px-3 font-bold text-secondary">${escapeHtml(l.copy?.accession_number || 'N/A')}</td>
+                <td class="py-3 px-3 text-on-surface-variant">${new Date(l.issued_at).toLocaleDateString()}</td>
+                <td class="py-3 px-3 font-semibold text-primary">${new Date(l.due_at).toLocaleDateString()}</td>
+                <td class="py-3 px-3">${returnBtn}</td>
+              </tr>
+            `;
+          });
+        } else {
+          container.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-xs text-on-surface-variant">No active library loans recorded.</td></tr>`;
+        }
+      } catch (err) {
+        container.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-xs text-red-600">Error loading loans.</td></tr>`;
+      }
+    }
+
+    function openBookModal() { document.getElementById('book-modal').classList.remove('hidden'); }
+    function closeBookModal() { document.getElementById('book-modal').classList.add('hidden'); }
+    function openIssueModal() { document.getElementById('issue-modal').classList.remove('hidden'); }
+    function closeIssueModal() { document.getElementById('issue-modal').classList.add('hidden'); }
+
+    async function addBook(event) {
+      event.preventDefault();
+      const title = document.getElementById('b-title').value;
+      const author = document.getElementById('b-author').value;
+      const isbn = document.getElementById('b-isbn').value;
+      const publisher = document.getElementById('b-publisher').value;
+      const category = document.getElementById('b-cat').value;
+      const accStr = document.getElementById('b-accessions').value;
+      const accession_numbers = accStr ? accStr.split(',').map(s => s.trim()) : [];
+
+      try {
+        const res = await PzAPI.authPost('/campus/library/books', { title, author, isbn, publisher, category, accession_numbers });
+        if (res.success) {
+          closeBookModal();
+          alert('Book added successfully!');
+        } else {
+          alert(res.message);
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    async function issueCopy(event) {
+      event.preventDefault();
+      const copy_id = document.getElementById('i-copy').value;
+      const student_id = document.getElementById('i-student').value;
+      const loan_days = document.getElementById('i-days').value;
+
+      try {
+        const res = await PzAPI.authPost('/campus/library/loans/issue', { copy_id, student_id, loan_days });
+        if (res.success) {
+          closeIssueModal();
+          await loadLoans();
+        } else {
+          alert(res.message);
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    async function returnCopy(loanId) {
+      try {
+        const res = await PzAPI.authPost(`/campus/library/loans/${loanId}/return`, {});
+        if (res.success) await loadLoans();
+        else alert(res.message);
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Academic Course Catalog — Phazon</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/variables.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="../../css/components.css"/>
+  <link rel="stylesheet" href="../../css/layout.css"/>
+  <link rel="stylesheet" href="../../css/responsive.css"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#000000", "secondary": "#4648d4", "background": "#f8f9ff",
+            "surface": "#f8f9ff", "on-surface": "#0d1c2e", "on-surface-variant": "#45464d",
+            "outline-variant": "#c6c6cd", "surface-container-lowest": "#ffffff", "surface-container-high": "#dce9ff"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex">
+  <!-- SideNavBar -->
+  <nav class="hidden md:flex fixed left-0 top-0 h-full w-[280px] z-50 border-r border-outline-variant bg-surface flex-col py-lg">
+    <div class="px-md mb-xl">
+      <div class="flex items-center gap-sm">
+        <div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-white">
+          <span class="material-symbols-outlined">school</span>
+        </div>
+        <div>
+          <a href="../../index.html" class="font-headline-md text-headline-md font-black text-primary block">Phazon Academic</a>
+          <p class="font-label-sm text-label-sm text-secondary font-bold">Course Catalog</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1 flex flex-col gap-xs font-label-md text-label-md pr-md">
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../dashboard/dashboard.html">
+        <span class="material-symbols-outlined">dashboard</span>Dashboard
+      </a>
+      <a class="flex items-center gap-sm bg-primary-container text-on-primary-container border-l-4 border-secondary rounded-r-full py-3 px-md" href="courses.html">
+        <span class="material-symbols-outlined">school</span>My Courses
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../attendance/attendance.html">
+        <span class="material-symbols-outlined">fact_check</span>Attendance
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../assignments/assignments.html">
+        <span class="material-symbols-outlined">assignment</span>Assignments
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../exams/exams.html">
+        <span class="material-symbols-outlined">quiz</span>Exams
+      </a>
+      <a class="flex items-center gap-sm text-on-surface-variant py-3 px-md hover:bg-surface-container-high rounded-r-full hover:text-primary transition-all" href="../grades/grades.html">
+        <span class="material-symbols-outlined">grade</span>Grades
+      </a>
+    </div>
+    <div class="px-md mt-auto pt-lg">
+      <button onclick="PzAuth.logout()" class="w-full bg-secondary text-white py-sm px-md rounded-lg font-label-md flex justify-center items-center gap-sm shadow-sm">
+        <span class="material-symbols-outlined text-[18px]">logout</span>Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content Canvas -->
+  <main class="flex-1 md:ml-[280px] min-w-0 p-margin-mobile md:p-lg max-w-container-max mx-auto w-full flex flex-col gap-xl">
+    <header class="flex flex-col gap-md pt-lg">
+      <h2 class="font-display-lg text-display-lg text-on-background">
+        Academic Subjects & Syllabus Catalog
+      </h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+        Explore structured curriculum modules across AI & Data Science, Computer Science, Electronics, and core engineering departments.
+      </p>
+    </header>
+
+    <!-- Course Cards Grid -->
+    <section id="pz-courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+      <!-- Populated dynamically -->
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/state.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/data.js"></script>
+  <script src="../../js/auth-client.js"></script>
+  <script src="../../js/ui.js"></script>
+  <script src="../../js/courses.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!PzAuth.requireAuthGuard()) return;
+    });
+  </script>
+</body>
+</html>
