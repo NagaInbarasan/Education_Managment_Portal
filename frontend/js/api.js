@@ -6,7 +6,9 @@
  */
 
 const PzAPI = (() => {
-  const BASE_URL = `${window.location.origin}/api`;
+  // PzConfig.API_BASE is defined in js/config.js — resolves to localhost for
+  // local dev and to the Render backend URL when hosted on Vercel.
+  const BASE_URL = (window.PzConfig?.API_BASE) || `${window.location.origin}/api`;
 
   // ── Auth Header Helper ───────────────────────────────────────────
   function _getAuthHeadersSync() {
