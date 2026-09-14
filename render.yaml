@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: phazon-portal-backend
+    env: node
+    region: singapore
+    plan: free
+    buildCommand: npm install
+    startCommand: node server/server.js
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: HTTPS_PROXY
+        value: "true"
+      - key: JWT_SECRET
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: OLLAMA_URL
+        sync: false
+      - key: OLLAMA_MODEL
+        value: qwen3:8b
+      - key: OLLAMA_EMBEDDING_MODEL
+        value: nomic-embed-text
+      - key: CORS_ORIGIN
+        sync: false
