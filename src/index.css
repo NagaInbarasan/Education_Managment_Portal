@@ -1,0 +1,499 @@
+/* ==========================================
+   PHAZON PORTAL CORE STYLESHEET
+   Premium, Animated, Modern Web Design System
+   ========================================== */
+
+/* --- GOOGLE FONTS --- */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  /* --- SYSTEM FONTS --- */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+
+  /* --- BORDER RADIUS --- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* --- TRANSITIONS --- */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================
+   THEME PALETTE MATRIX (11 PALETTES)
+   ========================================== */
+
+/* --- 1. INDIGO (DEFAULT) --- */
+[data-theme="light"][data-palette="indigo"] {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-rgb: 79, 70, 229;
+  --gradient-hero: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+}
+[data-theme="dark"][data-palette="indigo"] {
+  --primary: #818cf8;
+  --primary-hover: #6366f1;
+  --primary-rgb: 129, 140, 248;
+  --gradient-hero: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+}
+
+/* --- 2. EMERALD --- */
+[data-theme="light"][data-palette="emerald"] {
+  --primary: #059669;
+  --primary-hover: #047857;
+  --primary-rgb: 5, 150, 105;
+  --gradient-hero: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+}
+[data-theme="dark"][data-palette="emerald"] {
+  --primary: #34d399;
+  --primary-hover: #10b981;
+  --primary-rgb: 52, 211, 153;
+  --gradient-hero: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
+}
+
+/* --- 3. VIOLET --- */
+[data-theme="light"][data-palette="violet"] {
+  --primary: #7c3aed;
+  --primary-hover: #6d28d9;
+  --primary-rgb: 124, 58, 237;
+  --gradient-hero: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+}
+[data-theme="dark"][data-palette="violet"] {
+  --primary: #a78bfa;
+  --primary-hover: #8b5cf6;
+  --primary-rgb: 167, 139, 250;
+  --gradient-hero: linear-gradient(135deg, #2e1065 0%, #0f172a 100%);
+}
+
+/* --- 4. AMBER --- */
+[data-theme="light"][data-palette="amber"] {
+  --primary: #d97706;
+  --primary-hover: #b45309;
+  --primary-rgb: 217, 119, 6;
+  --gradient-hero: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+}
+[data-theme="dark"][data-palette="amber"] {
+  --primary: #fbbf24;
+  --primary-hover: #f59e0b;
+  --primary-rgb: 251, 191, 36;
+  --gradient-hero: linear-gradient(135deg, #78350f 0%, #0f172a 100%);
+}
+
+/* --- 5. CRIMSON --- */
+[data-theme="light"][data-palette="crimson"] {
+  --primary: #e11d48;
+  --primary-hover: #be123c;
+  --primary-rgb: 225, 29, 72;
+  --gradient-hero: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%);
+}
+[data-theme="dark"][data-palette="crimson"] {
+  --primary: #fb7185;
+  --primary-hover: #f43f5e;
+  --primary-rgb: 251, 113, 133;
+  --gradient-hero: linear-gradient(135deg, #881337 0%, #0f172a 100%);
+}
+
+/* --- 6. CYAN --- */
+[data-theme="light"][data-palette="cyan"] {
+  --primary: #0891b2;
+  --primary-hover: #0e7490;
+  --primary-rgb: 8, 145, 178;
+  --gradient-hero: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+}
+[data-theme="dark"][data-palette="cyan"] {
+  --primary: #22d3ee;
+  --primary-hover: #06b6d4;
+  --primary-rgb: 34, 211, 238;
+  --gradient-hero: linear-gradient(135deg, #164e63 0%, #0f172a 100%);
+}
+
+/* --- 7. ROSE --- */
+[data-theme="light"][data-palette="rose"] {
+  --primary: #db2777;
+  --primary-hover: #be185d;
+  --primary-rgb: 219, 39, 119;
+  --gradient-hero: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+}
+[data-theme="dark"][data-palette="rose"] {
+  --primary: #f472b6;
+  --primary-hover: #ec4899;
+  --primary-rgb: 244, 114, 182;
+  --gradient-hero: linear-gradient(135deg, #4c0519 0%, #0f172a 100%);
+}
+
+/* --- 8. ORANGE --- */
+[data-theme="light"][data-palette="orange"] {
+  --primary: #ea580c;
+  --primary-hover: #ca8a04;
+  --primary-rgb: 234, 88, 12;
+  --gradient-hero: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+}
+[data-theme="dark"][data-palette="orange"] {
+  --primary: #fb923c;
+  --primary-hover: #f97316;
+  --primary-rgb: 251, 146, 60;
+  --gradient-hero: linear-gradient(135deg, #7c2d12 0%, #0f172a 100%);
+}
+
+/* --- 9. TEAL --- */
+[data-theme="light"][data-palette="teal"] {
+  --primary: #0d9488;
+  --primary-hover: #0f766e;
+  --primary-rgb: 13, 148, 136;
+  --gradient-hero: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+}
+[data-theme="dark"][data-palette="teal"] {
+  --primary: #2dd4bf;
+  --primary-hover: #14b8a6;
+  --primary-rgb: 45, 212, 191;
+  --gradient-hero: linear-gradient(135deg, #115e59 0%, #0f172a 100%);
+}
+
+/* --- 10. BLUE --- */
+[data-theme="light"][data-palette="blue"] {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-rgb: 37, 99, 235;
+  --gradient-hero: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+}
+[data-theme="dark"][data-palette="blue"] {
+  --primary: #60a5fa;
+  --primary-hover: #3b82f6;
+  --primary-rgb: 96, 165, 250;
+  --gradient-hero: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+}
+
+/* --- 11. LIME --- */
+[data-theme="light"][data-palette="lime"] {
+  --primary: #65a30d;
+  --primary-hover: #4d7c0f;
+  --primary-rgb: 101, 163, 13;
+  --gradient-hero: linear-gradient(135deg, #f7fee7 0%, #ecfccb 100%);
+}
+[data-theme="dark"][data-palette="lime"] {
+  --primary: #a3e635;
+  --primary-hover: #84cc16;
+  --primary-rgb: 163, 230, 53;
+  --gradient-hero: linear-gradient(135deg, #3f6212 0%, #0f172a 100%);
+}
+
+/* ==========================================
+   LIGHT & DARK GENERAL MATRIX
+   ========================================== */
+
+[data-theme="light"] {
+  --bg-app: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f8fafc;
+  --border-color: rgba(226, 232, 240, 0.8);
+  --text-main: #0f172a;
+  --text-subtle: #475569;
+  --text-muted: #64748b;
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 20px 40px -15px rgba(15, 23, 42, 0.12);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="dark"] {
+  --bg-app: #070a13;
+  --bg-surface: #0d1222;
+  --bg-surface-hover: #151d34;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --text-main: #f8fafc;
+  --text-subtle: #cbd5e1;
+  --text-muted: #94a3b8;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  --glass-bg: rgba(13, 18, 34, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================
+   RESET & SYSTEM BASES
+   ========================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  min-height: 100vh;
+  transition: background-color 0.4s ease;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* --- SCROLLBAR SYSTEM --- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ==========================================
+   GLASSMORPHISM & WIDGET CARD BLOCKS
+   ========================================== */
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.glass-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================
+   LAYOUT GRID STRUCTURES & SPACING OVERRIDES
+   ========================================== */
+
+.container {
+  width: 100%;
+  max-width: 96%; /* Expanded wider layout! */
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.workspace-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr; /* Wider sidebar */
+  gap: 40px; /* Spacious gaps! */
+  padding: 32px 0;
+  min-height: calc(100vh - 100px);
+}
+
+.dashboard-split-columns {
+  display: grid;
+  grid-template-columns: 1fr 300px; /* Wider right ledger */
+  gap: 40px; /* Spacious split gaps! */
+}
+
+/* ==========================================
+   BUTTON & INTERACTION CONTROLS
+   ========================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+}
+.btn-primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 0 16px rgba(var(--primary-rgb), 0.35);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+}
+.btn-outline:hover {
+  background: var(--primary);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   LIVELY POPPING & RENDERING ANIMATIONS
+   ========================================== */
+
+@keyframes animatePop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-pop-in {
+  animation: animatePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Stagger animations for list items */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+
+/* SVG Stroke Draw Animation for line charts */
+@keyframes drawStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* SVG Fill Scale Animation for pie/bar segments */
+@keyframes inflateFill {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+/* Pulse Flame Streak Animation */
+@keyframes pulseFlame {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+.fire-streak {
+  animation: pulseFlame 1.2s infinite ease-in-out;
+}
+
+/* ==========================================
+   SEPARATOR TABS VIEW PORT LAYOUT CONTROLS
+   ========================================== */
+
+.full-width-layout {
+  grid-template-columns: 1fr !important;
+}
+
+.non-statistics-panel {
+  font-size: 1.18rem !important;
+  letter-spacing: 0.04em !important;
+  word-spacing: 0.08em !important;
+  line-height: 1.85 !important;
+  padding: 32px !important; /* Perfect padding to prevent edge hitting */
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.non-statistics-panel h3, 
+.non-statistics-panel .section-title, 
+.non-statistics-panel .pane-title {
+  font-size: 1.5rem !important;
+  letter-spacing: 0.04em !important;
+  margin-bottom: 22px !important;
+  font-weight: 800 !important;
+  text-align: center; /* Centering titles */
+}
+
+
+
+.non-statistics-panel .btn, 
+.non-statistics-panel button {
+  font-size: 1.05rem !important;
+  letter-spacing: 0.04em !important;
+  padding: 10px 20px !important;
+}
+
+/* Perfect alignment form boxes to keep texts away from layout corners */
+.centered-form-wrap {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 32px;
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --- CLICK SPARK OVERLAYS --- */
+.click-spark-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+}
+
+/* --- PREMIUM SPOTLIGHT CARD STYLES --- */
+.card-spotlight {
+  position: relative;
+  border-radius: 1.5rem;
+  border: 1.5px solid var(--border-color);
+  background-color: var(--bg-surface);
+  padding: 2rem;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: rgba(255, 255, 255, 0.05);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card-spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 80%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-spotlight:hover::before,
+.card-spotlight:focus-within::before {
+  opacity: 0.6;
+}
+
+.card-spotlight > * {
+  position: relative;
+  z-index: 2;
+}
