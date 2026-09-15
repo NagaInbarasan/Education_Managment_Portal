@@ -3,26 +3,44 @@ import supabase from '../supabase.js';
 const OLLAMA_BASE_URL = process.env.OLLAMA_BASE_URL || process.env.OLLAMA_URL || 'http://localhost:11434';
 const LLM_MODEL = process.env.OLLAMA_LLM_MODEL || process.env.OLLAMA_MODEL || 'qwen3:8b';
 const EMBEDDING_MODEL = process.env.OLLAMA_EMBEDDING_MODEL || 'nomic-embed-text';
+const TUNNEL_SECRET = process.env.OLLAMA_TUNNEL_SECRET || '';
+
+/**
+ * Build headers for Ollama requests.
+ * Includes the X-Ollama-Secret header when a tunnel secret is configured
+ * (production via Cloudflare Tunnel). In local dev, no secret is sent.
+ */
+function ollamaHeaders(extra = {}) {
+  const headers = { 'Content-Type': 'application/json', ...extra };
+  if (TUNNEL_SECRET) {
+    headers['X-Ollama-Secret'] = TUNNEL_SECRET;
+  }
+  return headers;
+}
 
 /**
  * Check if Ollama is reachable and required models are available.
+ * Never exposes the tunnel URL, secret, or internal network details.
  */
 export async function checkHealth() {
   try {
-    const res = await fetch(`${OLLAMA_BASE_URL}/api/tags`, { signal: AbortSignal.timeout(5000) });
-    if (!res.ok) return { status: 'error', message: 'Ollama not responding' };
+    const res = await fetch(`${OLLAMA_BASE_URL}/api/tags`, {
+      headers: ollamaHeaders(),
+      signal: AbortSignal.timeout(10000)
+    });
+    if (!res.ok) return { status: 'error', message: 'AI service not responding' };
     const data = await res.json();
     const models = (data.models || []).map(m => m.name);
     const hasLLM = models.some(m => m.startsWith(LLM_MODEL.split(':')[0]));
     const hasEmbed = models.some(m => m.startsWith(EMBEDDING_MODEL.split(':')[0]));
     return {
       status: hasLLM && hasEmbed ? 'ok' : 'partial',
-      ollama: true,
-      llm: { model: LLM_MODEL, available: hasLLM },
-      embedding: { model: EMBEDDING_MODEL, available: hasEmbed }
+      available: true,
+      llm: { model: LLM_MODEL, ready: hasLLM },
+      embedding: { model: EMBEDDING_MODEL, ready: hasEmbed }
     };
   } catch (err) {
-    return { status: 'error', ollama: false, message: 'Ollama is not reachable' };
+    return { status: 'error', available: false, message: 'AI service is not reachable' };
   }
 }
 
@@ -39,7 +57,7 @@ export async function generateChat(messages, { model, temperature, noThink } = {
 
   const res = await fetch(`${OLLAMA_BASE_URL}/api/chat`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: ollamaHeaders(),
     body: JSON.stringify({
       model: useModel,
       messages,
@@ -64,7 +82,7 @@ export async function generateChat(messages, { model, temperature, noThink } = {
 export async function generateEmbedding(text) {
   const res = await fetch(`${OLLAMA_BASE_URL}/api/embed`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: ollamaHeaders(),
     body: JSON.stringify({
       model: EMBEDDING_MODEL,
       input: text
